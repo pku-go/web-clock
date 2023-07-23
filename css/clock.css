@@ -1,0 +1,48 @@
+body {
+    background: url("../images/background.png") no-repeat center fixed;
+    background-size: cover;
+}
+#outCircle {
+    fill: #875db1;
+    opacity: 0.5;
+    stroke-width: 2px;
+}
+#inCircle {
+    fill: #7357c5;
+    opacity: 1;
+    stroke-width: 2px;
+}
+.liveCircle {
+    fill: none;
+    stroke-width: 25px;
+    stroke-dasharray: 170px 100000px;
+    transform-origin: 125px 125px;
+}
+.hourHand {
+    transform-origin: 125px 125px;
+}
+.minuteHand {
+    transform-origin: 125px 125px;
+}
+.secondHand {
+    transform-origin: 125px 125px;
+}
+
+.playSecond {
+    animation: rotate 60s infinite linear;
+}
+
+.playMinute {
+    animation: rotate 3600s infinite linear;
+}
+
+.playHour {
+    animation: rotate 43200s infinite linear;
+}
+
+/* 让某个组件旋转1圈动画 */
+@keyframes rotate {
+    to {
+        transform: rotate(1turn);
+    }
+}
