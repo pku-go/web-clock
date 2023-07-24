@@ -5,7 +5,6 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
 }
 
 .time {
@@ -17,6 +16,7 @@ body {
     letter-spacing: 0.05em;
     font-size: 24px;
     padding: 5px 0;
+    text-align: center;
 }
 
 .date {
@@ -27,6 +27,7 @@ body {
     text-shadow: 0 0 20px #3a006f, 0 0 20px rgba(10, 175, 230, 0);
     letter-spacing: 0.1em;
     font-size: 18px;
+    text-align: center;
 }
 
 #outCircle {
@@ -72,6 +73,17 @@ body {
     animation: rotate 43200s infinite linear;
 }
 
+.select{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+text{
+    font-size: 18px;
+    fill: #d7c0ee;
+}
 /* 让某个组件旋转1圈动画 */
 @keyframes rotate {
     50% {

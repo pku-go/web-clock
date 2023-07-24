@@ -11,6 +11,7 @@ let secondText = document.querySelector("#second");
 let yearText = document.querySelector("#year");
 let monthText = document.querySelector("#month");
 let dayText = document.querySelector("#day");
+let lable = document.querySelector("text");
 class Clock {
     constructor(hour, minute, second) {
         this.hour = hour;
@@ -127,6 +128,10 @@ function second_mousemove(event) {
     inClock.onmouseup = mouseup;
     liveClock.onmouseup = mouseup;
     secondHand.onmouseup = mouseup;
+    minuteHand.onmouseup = mouseup;
+    hourHand.onmouseup = mouseup;
+    secondHand.onclick = mouseup;
+    lable.onmouseup = mouseup;
     document.onmouseup = mouseup;
 }
 
@@ -144,7 +149,11 @@ function minute_mousemove(event) {
     outClock.onmouseup = mouseup;
     inClock.onmouseup = mouseup;
     liveClock.onmouseup = mouseup;
+    secondHand.onmouseup = mouseup;
     minuteHand.onmouseup = mouseup;
+    hourHand.onmouseup = mouseup;
+    minuteHand.onclick = mouseup;
+    lable.onmouseup = mouseup;
     document.onmouseup = mouseup;
 }
 
@@ -162,7 +171,11 @@ function hour_mousemove(event) {
     outClock.onmouseup = mouseup;
     inClock.onmouseup = mouseup;
     liveClock.onmouseup = mouseup;
+    secondHand.onmouseup = mouseup;
+    minuteHand.onmouseup = mouseup;
     hourHand.onmouseup = mouseup;
+    hourHand.onclick = mouseup;
+    lable.onmouseup = mouseup;
     document.onmouseup = mouseup;
 }
 
@@ -194,11 +207,35 @@ function mouseup(event) {
     outClock.onmousemove = null;
     inClock.onmousemove = null;
     liveClock.onmousemove = null;
+    lable.onmousemove = null;
+    secondHand.onmousemove = null;
+    minuteHand.onmousemove = null;  
+    hourHand.onmousemove = null;
+
     console.log(clock.second, clock.minute, clock.hour);
     clock.update_angle_via_time();
     set_new_angle();
     start();
     event.stopPropagation();
+    outClock.onmouseup = null;
+    inClock.onmouseup = null;
+    liveClock.onmouseup = null;
+    lable.onmouseup = null;
+    document.onmouseup = null;
+}
+
+function change_state() {
+    if (clock.state === "AM") {
+        clock.state = "PM";
+        lable.innerHTML = "PM";
+        if (clock.hour < 12) clock.hour += 12;
+        clock.hour %= 24;
+    } else {
+        clock.state = "AM";
+        lable.innerHTML = "AM";
+        if (clock.hour >= 12) clock.hour -= 12;
+    }
+    update_time_text();
 }
 
 function start() {
@@ -224,6 +261,7 @@ function main() {
         outClock.onmousemove = second_mousemove;
         inClock.onmousemove = second_mousemove;
         liveClock.onmousemove = second_mousemove;
+        lable.onmousemove = second_mousemove;
     };
     minuteHand.onmousedown = function () {
         pause();
@@ -234,9 +272,14 @@ function main() {
             "style",
             "rotate: " + clock.secondAngle + "deg"
         );
+        liveClock.setAttribute(
+            "style",
+            "rotate: " + (clock.secondAngle + 180) + "deg"
+        );
         outClock.onmousemove = minute_mousemove;
         inClock.onmousemove = minute_mousemove;
         liveClock.onmousemove = minute_mousemove;
+        lable.onmousemove = minute_mousemove;
     };
     hourHand.onmousedown = function () {
         // 控制台输出相对于元素左上角的坐标
@@ -250,9 +293,14 @@ function main() {
             "style",
             "rotate: " + clock.minuteAngle + "deg"
         );
+        liveClock.setAttribute(
+            "style",
+            "rotate: " + (clock.secondAngle + 180) + "deg"
+        );
         outClock.onmousemove = hour_mousemove;
         inClock.onmousemove = hour_mousemove;
         liveClock.onmousemove = hour_mousemove;
+        lable.onmousemove = hour_mousemove;
     };
     // 初始化指针角度
     clock.update_angle_via_time();

@@ -9,7 +9,7 @@
             @import url("./css/clock.css");
         </style>
     </head>
-    <body>
+    <body onclick="console.log(12345)">
         <div class="clock">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -69,6 +69,18 @@
                             stop-opacity="0"
                         />
                     </linearGradient>
+                    <filter id="textShadow">
+                        <feGaussianBlur
+                            in="SourceGraphic"
+                            stdDeviation="3"
+                            result="Gau1"
+                        />
+                        <feComposite
+                            in="Gau1"
+                            in2="SourceAlpha"
+                            operator="over"
+                        ></feComposite>
+                    </filter>
                 </defs>
                 <!-- 绘制时钟盘面 -->
                 <g>
@@ -86,6 +98,15 @@
                         r="95px"
                         filter="url(#inShadow)"
                     />
+                    <text
+                        class="select"
+                        x="110px"
+                        y="65px"
+                        filter="url(#textShadow)"
+                        onclick="change_state()"
+                    >
+                        PM
+                    </text>
                     <line
                         class="hourHand"
                         x1="125px"
@@ -172,14 +193,14 @@
                 </g>
             </svg>
             <section>
-                <div class="time">
+                <div class="time select">
                     <span id="hour">00</span>
                     <span>:</span>
                     <span id="minute">00</span>
                     <span>:</span>
                     <span id="second">00</span>
                 </div>
-                <div class="date">
+                <div class="date select">
                     <span id="year">0000</span>
                     <span>年</span>
                     <span id="month">00</span>
