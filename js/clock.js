@@ -40,8 +40,11 @@ class Clock {
         this.minute = parseInt(this.minuteAngle / 6);
         // 计算小时数
         this.hour = parseInt(this.hourAngle / 30);
+        if (this.hour === 0) this.hour = 12;
         if (this.state === "PM") {
             this.hour += 12;
+            this.hour %= 24;
+            if (this.hour === 0) this.state = "AM";
         }
     }
     set_time(hour, minute, second) {
@@ -67,10 +70,6 @@ function get_current_clock() {
 }
 
 let clock = get_current_clock();
-// 初始化指针角度
-clock.update_angle_via_time();
-set_new_angle();
-update_time_text();
 
 function run_clock() {
     clock.second += 1;
@@ -117,12 +116,18 @@ function second_mousemove(event) {
         (-Math.atan2(125 - event.offsetX, 125 - event.offsetY) * 180) / Math.PI;
     angle.toFixed(2);
     secondHand.setAttribute("style", "rotate: " + angle + "deg");
+    clock.secondAngle = angle;
+    if (angle < 0) clock.secondAngle += 360;
+    clock.update_time_via_angle();
+    update_time_text();
+    set_new_angle();
     angle += 180;
     liveClock.setAttribute("style", "rotate: " + angle + "deg");
     outClock.onmouseup = mouseup;
     inClock.onmouseup = mouseup;
     liveClock.onmouseup = mouseup;
     secondHand.onmouseup = mouseup;
+    document.onmouseup = mouseup;
 }
 
 function minute_mousemove(event) {
@@ -131,10 +136,16 @@ function minute_mousemove(event) {
         (-Math.atan2(125 - event.offsetX, 125 - event.offsetY) * 180) / Math.PI;
     angle.toFixed(2);
     minuteHand.setAttribute("style", "rotate: " + angle + "deg");
+    clock.minuteAngle = angle;
+    if (angle < 0) clock.minuteAngle += 360;
+    clock.update_time_via_angle();
+    update_time_text();
+    set_new_angle();
     outClock.onmouseup = mouseup;
     inClock.onmouseup = mouseup;
     liveClock.onmouseup = mouseup;
     minuteHand.onmouseup = mouseup;
+    document.onmouseup = mouseup;
 }
 
 function hour_mousemove(event) {
@@ -144,12 +155,15 @@ function hour_mousemove(event) {
     angle.toFixed(2);
     hourHand.setAttribute("style", "rotate: " + angle + "deg");
     clock.hourAngle = angle;
+    if (angle < 0) clock.hourAngle += 360;
     clock.update_time_via_angle();
     update_time_text();
+    set_new_angle();
     outClock.onmouseup = mouseup;
     inClock.onmouseup = mouseup;
     liveClock.onmouseup = mouseup;
     hourHand.onmouseup = mouseup;
+    document.onmouseup = mouseup;
 }
 
 function set_new_angle() {
@@ -158,7 +172,6 @@ function set_new_angle() {
     hourHand.setAttribute("style", "rotate: " + clock.hourAngle + "deg");
     liveAngle = (Number(clock.secondAngle) + 180) % 360;
     liveClock.setAttribute("style", "rotate: " + liveAngle + "deg");
-    console.log(clock.secondAngle, clock.minuteAngle, clock.hourAngle);
 }
 
 function update_time_text() {
@@ -176,37 +189,51 @@ function update_time_text() {
     dayText.innerHTML = new Date().getDate();
 }
 
-function mouseup() {
+function mouseup(event) {
     // 移除鼠标移动事件监听
     outClock.onmousemove = null;
     inClock.onmousemove = null;
     liveClock.onmousemove = null;
-    start_animation();
+    console.log(clock.second, clock.minute, clock.hour);
+    clock.update_angle_via_time();
+    set_new_angle();
+    start();
+    event.stopPropagation();
 }
 
 function start() {
     clock_start = setInterval(run_clock, 1000);
-    setTimeout(start_animation, 50);
+    setTimeout(start_animation, 300);
 }
 
-function end() {
+function pause() {
     clearInterval(clock_start);
     stop_animation();
 }
 
 function main() {
     secondHand.onmousedown = function () {
-        stop_animation();
+        pause();
         // 控制台输出相对于元素左上角的坐标
         // 监听鼠标移动事件
+        minuteHand.setAttribute(
+            "style",
+            "rotate: " + clock.minuteAngle + "deg"
+        );
+        hourHand.setAttribute("style", "rotate: " + clock.hourAngle + "deg");
         outClock.onmousemove = second_mousemove;
         inClock.onmousemove = second_mousemove;
         liveClock.onmousemove = second_mousemove;
     };
     minuteHand.onmousedown = function () {
-        stop_animation();
+        pause();
         // 控制台输出相对于元素左上角的坐标
         // 监听鼠标移动事件
+        hourHand.setAttribute("style", "rotate: " + clock.hourAngle + "deg");
+        secondHand.setAttribute(
+            "style",
+            "rotate: " + clock.secondAngle + "deg"
+        );
         outClock.onmousemove = minute_mousemove;
         inClock.onmousemove = minute_mousemove;
         liveClock.onmousemove = minute_mousemove;
@@ -214,11 +241,24 @@ function main() {
     hourHand.onmousedown = function () {
         // 控制台输出相对于元素左上角的坐标
         // 监听鼠标移动事件
-        stop_animation();
+        pause();
+        secondHand.setAttribute(
+            "style",
+            "rotate: " + clock.secondAngle + "deg"
+        );
+        minuteHand.setAttribute(
+            "style",
+            "rotate: " + clock.minuteAngle + "deg"
+        );
         outClock.onmousemove = hour_mousemove;
         inClock.onmousemove = hour_mousemove;
         liveClock.onmousemove = hour_mousemove;
     };
+    // 初始化指针角度
+    clock.update_angle_via_time();
+    set_new_angle();
+    update_time_text();
+
     start();
 }
 

@@ -61,7 +61,7 @@ body {
 }
 
 .playSecond {
-    animation: rotate 60.2s infinite linear;
+    animation: rotate 60s infinite linear;
 }
 
 .playMinute {
