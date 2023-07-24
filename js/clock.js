@@ -9,6 +9,25 @@ let hourText = document.querySelector("#hour");
 let minuteText = document.querySelector("#minute");
 let secondText = document.querySelector("#second");
 let lable = document.querySelector("text");
+
+// 获取按钮元素
+let clockBtn = document.getElementById("clockBtn");
+let secondBtn = document.getElementById("secondBtn");
+let timerBtn = document.getElementById("timerBtn");
+let alarmBtn = document.getElementById("alarmBtn");
+let clockBtnBack = document.querySelector("#clockBtn .bar");
+let secondBtnBack = document.querySelector("#secondBtn .bar");
+let timerBtnBack = document.querySelector("#timerBtn .bar");
+let alarmBtnBack = document.querySelector("#alarmBtn .bar");
+
+// 时钟相关按钮及输入
+let settingBtn = document.getElementById("settingBtn");
+let clockInput = document.getElementById("clockInput");
+let clockItems = document.getElementById("clockItems");
+
+btn_list = [clockBtn, secondBtn, timerBtn, alarmBtn];
+btn_hover_list = [clockBtnBack, secondBtnBack, timerBtnBack, alarmBtnBack];
+// btnChosen = clockBtn;
 class Clock {
     constructor(hour, minute, second) {
         this.hour = hour;
@@ -20,8 +39,10 @@ class Clock {
             hour * 30 + minute * 0.5 + second * 0.008333333333333333;
         if (hour > 12) {
             this.state = "PM";
+            lable.innerHTML = "PM";
         } else {
             this.state = "AM";
+            lable.innerHTML = "AM";
         }
     }
     update_angle_via_time() {
@@ -38,21 +59,25 @@ class Clock {
         this.minute = parseInt(this.minuteAngle / 6);
         // 计算小时数
         this.hour = parseInt(this.hourAngle / 30);
-        if (this.hour === 0) this.hour = 12;
         if (this.state === "PM") {
             this.hour += 12;
             this.hour %= 24;
-            if (this.hour === 0) lable.innerHTML = "AM";
-            else lable.innerHTML = "PM";
-        } else {
-            if (this.hour === 12) lable.innerHTML = "PM";
-            else lable.innerHTML = "AM";
+            if (this.hour === 0) {
+                this.hour = 12;
+            }
         }
     }
     set_time(hour, minute, second) {
         this.hour = hour;
         this.minute = minute;
         this.second = second;
+        if (hour > 12) {
+            this.state = "PM";
+            lable.innerHTML = "PM";
+        } else {
+            this.state = "AM";
+            lable.innerHTML = "AM";
+        }
         this.update_angle_via_time();
     }
     set_angle(hourAngle, minuteAngle, secondAngle, state) {
@@ -83,7 +108,7 @@ function run_clock() {
         if (clock.minute >= 60) {
             clock.minute = 0;
             clock.hour += 1;
-            if(clock.hour === 12) change_state(); 
+            if (clock.hour === 12) change_state();
             // 如果小时数大于等于24，小时数归零
             if (clock.hour >= 24) {
                 clock.hour = 0;
@@ -211,7 +236,6 @@ function mouseup(event) {
     console.log(clock.second, clock.minute, clock.hour);
     clock.update_angle_via_time();
     set_new_angle();
-    start();
     event.stopPropagation();
     outClock.onmouseup = null;
     inClock.onmouseup = null;
@@ -235,19 +259,53 @@ function change_state() {
 }
 
 function start() {
-    if (clock_start === "pause" || clock_start === null) clock_start = setInterval(run_clock, 1000);
+    if (clock_start === "pause" || clock_start === null)
+        clock_start = setInterval(run_clock, 1000);
     setTimeout(start_animation, 300);
 }
 
 function pause() {
+    clock.update_angle_via_time();
+    set_new_angle();
     clearInterval(clock_start);
     clock_start = "pause";
     stop_animation();
 }
 
-function main() {
+function choseBtn(btn) {
+    let i = 0;
+    for (i = 0; i < btn_list.length; i++) {
+        if (btn_list[i].id === btn.id) {
+            btn_hover_list[i].style.opacity = 1;
+            btn.style.boxShadow = "0 0 20px #0271cc";
+            // btnChosen = btn;
+        } else {
+            btn_hover_list[i].style.opacity = 0;
+            btn_list[i].style.boxShadow = "";
+        }
+    }
+    switch (btn.id) {
+        case "clockBtn":
+            show_clock_items();
+            break;
+        case "secondBtn":
+            // to do
+            clear_clock_items();
+            
+            break;
+        case "timerBtn":
+            // to do
+            clear_clock_items();
+            break;
+        case "alarmBtn":
+            // to do
+            clear_clock_items();
+            break;
+    }
+}
+
+function allowDrop() {
     secondHand.onmousedown = function () {
-        pause();
         // 控制台输出相对于元素左上角的坐标
         // 监听鼠标移动事件
         minuteHand.setAttribute(
@@ -261,7 +319,6 @@ function main() {
         lable.onmousemove = second_mousemove;
     };
     minuteHand.onmousedown = function () {
-        pause();
         // 控制台输出相对于元素左上角的坐标
         // 监听鼠标移动事件
         hourHand.setAttribute("style", "rotate: " + clock.hourAngle + "deg");
@@ -281,7 +338,6 @@ function main() {
     hourHand.onmousedown = function () {
         // 控制台输出相对于元素左上角的坐标
         // 监听鼠标移动事件
-        pause();
         secondHand.setAttribute(
             "style",
             "rotate: " + clock.secondAngle + "deg"
@@ -299,6 +355,59 @@ function main() {
         liveClock.onmousemove = hour_mousemove;
         lable.onmousemove = hour_mousemove;
     };
+    lable.onclick = change_state;
+}
+
+function disallowDrop() {
+    secondHand.onmousedown = null;
+    minuteHand.onmousedown = null;
+    hourHand.onmousedown = null;
+    lable.onclick = null;
+}
+
+function set_time_via_input() {
+    let hour, minute, second;
+    if (settingBtn.innerText === "设置时间") {
+        settingBtn.innerText = "确认";
+        clockInput.setAttribute("style", "display: block;");
+        settingBtn.setAttribute("style", "margin-top: 5px;");
+        pause();
+        allowDrop();
+    } else {
+        hour = clockInput.value.split(":")[0];
+        minute = clockInput.value.split(":")[1];
+        second = clockInput.value.split(":")[2];
+        settingBtn.innerText = "设置时间";
+        clockInput.setAttribute("style", "display: none;");
+        settingBtn.setAttribute("style", "margin-top: 35px;");
+        // 检查输入合法性
+        if (hour == undefined || minute == undefined || second == undefined) {
+            start();
+            return;
+        }
+
+        hour = parseInt(hour);
+        minute = parseInt(minute);
+        second = parseInt(second);
+        clock.set_time(hour, minute, second);
+        set_new_angle();
+        update_time_text();
+        disallowDrop();
+        clockInput.value = "--:--:--";
+        start();
+    }
+}
+
+function clear_clock_items() {
+    clockItems.setAttribute("style", "display: none;");
+}
+
+function show_clock_items() {
+    clockItems.setAttribute("style", "display: block;");
+}
+
+function main() {
+    choseBtn(clockBtn);
     // 初始化指针角度
     clock.update_angle_via_time();
     set_new_angle();

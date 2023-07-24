@@ -10,197 +10,314 @@
         </style>
     </head>
     <body>
-        <div class="clock">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                width="250px"
-                height="250px"
-                overflow="visible"
-            >
-                <defs>
-                    <filter id="outShadow">
-                        <feGaussianBlur
-                            in="SourceGraphic"
-                            stdDeviation="7"
-                            result="Gau1"
+        <div class="control">
+            <div class="clock">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    width="250px"
+                    height="250px"
+                    overflow="visible"
+                >
+                    <defs>
+                        <filter id="outShadow">
+                            <feGaussianBlur
+                                in="SourceGraphic"
+                                stdDeviation="7"
+                                result="Gau1"
+                            />
+                            <feComposite
+                                in="Gau1"
+                                in2="SourceAlpha"
+                                operator="xor"
+                            ></feComposite>
+                        </filter>
+                        <filter id="inShadow">
+                            <feGaussianBlur
+                                in="SourceGraphic"
+                                stdDeviation="3"
+                                result="Gau1"
+                            />
+                            <feComposite
+                                in="Gau1"
+                                in2="SourceAlpha"
+                                operator="xor"
+                            ></feComposite>
+                        </filter>
+                        <filter id="liveShadow">
+                            <feGaussianBlur
+                                in="SourceGraphic"
+                                stdDeviation="7"
+                                result="Gau1"
+                            />
+                            <feComposite
+                                in="Gau1"
+                                in2="SourceAlpha"
+                                operator="over"
+                            ></feComposite>
+                        </filter>
+                        <linearGradient
+                            id="gradient"
+                            x1="0%"
+                            y1="100%"
+                            x2="100%"
+                            y2="0%"
+                        >
+                            <stop offset="30%" stop-color="#f4018b" />
+                            <stop
+                                offset="80%"
+                                stop-color="#d93a53"
+                                stop-opacity="0"
+                            />
+                        </linearGradient>
+                        <filter id="textShadow">
+                            <feGaussianBlur
+                                in="SourceGraphic"
+                                stdDeviation="1"
+                                result="Gau1"
+                            />
+                            <feComposite
+                                in="Gau1"
+                                in2="SourceAlpha"
+                                operator="over"
+                            ></feComposite>
+                        </filter>
+                    </defs>
+                    <!-- 绘制时钟盘面 -->
+                    <g>
+                        <circle
+                            id="outCircle"
+                            cx="125px"
+                            cy="125px"
+                            r="120px"
+                            filter="url(#outShadow)"
                         />
-                        <feComposite
-                            in="Gau1"
-                            in2="SourceAlpha"
-                            operator="xor"
-                        ></feComposite>
-                    </filter>
-                    <filter id="inShadow">
-                        <feGaussianBlur
-                            in="SourceGraphic"
-                            stdDeviation="3"
-                            result="Gau1"
+                        <circle
+                            id="inCircle"
+                            cx="125px"
+                            cy="125px"
+                            r="95px"
+                            filter="url(#inShadow)"
                         />
-                        <feComposite
-                            in="Gau1"
-                            in2="SourceAlpha"
-                            operator="xor"
-                        ></feComposite>
-                    </filter>
-                    <filter id="liveShadow">
-                        <feGaussianBlur
-                            in="SourceGraphic"
-                            stdDeviation="7"
-                            result="Gau1"
+                        <text
+                            class="selectban"
+                            x="110px"
+                            y="65px"
+                            filter="url(#textShadow)"
+                        >
+                            PM
+                        </text>
+                        <line
+                            class="hourHand"
+                            x1="125px"
+                            y1="135px"
+                            x2="125px"
+                            y2="65px"
+                            stroke="white"
+                            stroke-width="4px"
+                            stroke-linecap="round"
                         />
-                        <feComposite
-                            in="Gau1"
-                            in2="SourceAlpha"
-                            operator="over"
-                        ></feComposite>
-                    </filter>
-                    <linearGradient
-                        id="gradient"
-                        x1="0%"
-                        y1="100%"
-                        x2="100%"
-                        y2="0%"
+                        <circle cx="125px" cy="125px" r="4px" fill="white" />
+                        <line
+                            class="minuteHand"
+                            x1="125px"
+                            y1="135px"
+                            x2="125px"
+                            y2="30px"
+                            stroke="#707072"
+                            stroke-width="3px"
+                            stroke-linecap="round"
+                        />
+                        <line
+                            class="secondHand"
+                            x1="125px"
+                            y1="135px"
+                            x2="125px"
+                            y2="15px"
+                            stroke="#d93a53"
+                            stroke-width="2px"
+                            stroke-linecap="round"
+                        />
+                        <circle cx="125px" cy="125px" r="3px" fill="#d93a53" />
+                    </g>
+                    <!-- 绘制时钟盘面上的刻度 -->
+                    <g transform="translate(125,125)">
+                        <g transform="rotate(0)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(30)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(60)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(90)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(120)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(150)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(180)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(210)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(240)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(270)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(300)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                        <g transform="rotate(330)">
+                            <line
+                                x1="0"
+                                y1="-95"
+                                x2="0"
+                                y2="-90"
+                                stroke="white"
+                            />
+                        </g>
+                    </g>
+                    <!-- 绘制秒针跟随圆环 -->
+                    <g transform="translate(0,0)">
+                        <circle
+                            class="liveCircle"
+                            cx="125px"
+                            cy="125px"
+                            r="107.5px"
+                            filter="url(#liveShadow)"
+                            stroke="url(#gradient)"
+                            style="rotate: 180deg"
+                        />
+                    </g>
+                </svg>
+                <section>
+                    <div class="time selectban">
+                        <span id="hour">00</span>
+                        <span>:</span>
+                        <span id="minute">00</span>
+                        <span>:</span>
+                        <span id="second">00</span>
+                    </div>
+                </section>
+                <div class="set_clock_time" id="clockItems">
+                    <input type="time" step="1" id="clockInput" />
+                    <button
+                        type="button"
+                        id="settingBtn"
+                        onclick="set_time_via_input()"
                     >
-                        <stop offset="30%" stop-color="#f4018b" />
-                        <stop
-                            offset="80%"
-                            stop-color="#d93a53"
-                            stop-opacity="0"
-                        />
-                    </linearGradient>
-                    <filter id="textShadow">
-                        <feGaussianBlur
-                            in="SourceGraphic"
-                            stdDeviation="1"
-                            result="Gau1"
-                        />
-                        <feComposite
-                            in="Gau1"
-                            in2="SourceAlpha"
-                            operator="over"
-                        ></feComposite>
-                    </filter>
-                </defs>
-                <!-- 绘制时钟盘面 -->
-                <g>
-                    <circle
-                        id="outCircle"
-                        cx="125px"
-                        cy="125px"
-                        r="120px"
-                        filter="url(#outShadow)"
-                    />
-                    <circle
-                        id="inCircle"
-                        cx="125px"
-                        cy="125px"
-                        r="95px"
-                        filter="url(#inShadow)"
-                    />
-                    <text
-                        class="select"
-                        x="110px"
-                        y="65px"
-                        filter="url(#textShadow)"
-                        onclick="change_state()"
-                    >
-                        PM
-                    </text>
-                    <line
-                        class="hourHand"
-                        x1="125px"
-                        y1="135px"
-                        x2="125px"
-                        y2="65px"
-                        stroke="white"
-                        stroke-width="4px"
-                        stroke-linecap="round"
-                    />
-                    <circle cx="125px" cy="125px" r="4px" fill="white" />
-                    <line
-                        class="minuteHand"
-                        x1="125px"
-                        y1="135px"
-                        x2="125px"
-                        y2="30px"
-                        stroke="#707072"
-                        stroke-width="3px"
-                        stroke-linecap="round"
-                    />
-                    <line
-                        class="secondHand"
-                        x1="125px"
-                        y1="135px"
-                        x2="125px"
-                        y2="15px"
-                        stroke="#d93a53"
-                        stroke-width="2px"
-                        stroke-linecap="round"
-                    />
-                    <circle cx="125px" cy="125px" r="3px" fill="#d93a53" />
-                </g>
-                <!-- 绘制时钟盘面上的刻度 -->
-                <g transform="translate(125,125)">
-                    <g transform="rotate(0)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(30)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(60)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(90)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(120)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(150)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(180)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(210)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(240)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(270)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(300)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                    <g transform="rotate(330)">
-                        <line x1="0" y1="-95" x2="0" y2="-90" stroke="white" />
-                    </g>
-                </g>
-                <!-- 绘制秒针跟随圆环 -->
-                <g transform="translate(0,0)">
-                    <circle
-                        class="liveCircle"
-                        cx="125px"
-                        cy="125px"
-                        r="107.5px"
-                        filter="url(#liveShadow)"
-                        stroke="url(#gradient)"
-                        style="rotate: 180deg"
-                    />
-                </g>
-            </svg>
-            <section>
-                <div class="time select">
-                    <span id="hour">00</span>
-                    <span>:</span>
-                    <span id="minute">00</span>
-                    <span>:</span>
-                    <span id="second">00</span>
+                        设置时间
+                    </button>
                 </div>
-            </section>
+            </div>
+            <div class="menu">
+                <div
+                    class="menu-item selectban"
+                    id="clockBtn"
+                    onclick="choseBtn(this)"
+                >
+                    <div class="bar"></div>
+                    <p>时钟</p>
+                </div>
+                <div
+                    class="menu-item selectban"
+                    id="secondBtn"
+                    onclick="choseBtn(this)"
+                >
+                    <div class="bar"></div>
+                    <p>秒表</p>
+                </div>
+                <div
+                    class="menu-item selectban"
+                    id="timerBtn"
+                    onclick="choseBtn(this)"
+                >
+                    <div class="bar"></div>
+                    <p>计时器</p>
+                </div>
+                <div
+                    class="menu-item selectban"
+                    id="alarmBtn"
+                    onclick="choseBtn(this)"
+                >
+                    <div class="bar"></div>
+                    <p>闹钟</p>
+                </div>
+            </div>
         </div>
     </body>
 </html>

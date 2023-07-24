@@ -1,13 +1,170 @@
 body {
+    font-family: "Share Tech Mono", monospace;
     background: url("../images/background.png") no-repeat center fixed;
     background-size: cover;
     position: absolute;
+    width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.control {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+    width: 100%;
+}
+
+.set_clock_time {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 70px;
+    overflow: visible;
+    top: 245px;
+    left: 240px;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.set_clock_time #clockInput {
+    width: 140px;
+    padding-left: 8px;
+    padding-right: 0px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    display: none;
+}
+
+.set_clock_time button {
+    margin-top: 35px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+.set_clock_time button:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
+
+.menu {
+    flex: 2;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 100;
+    border-radius: 25px;
+    flex-flow: row wrap;
+    margin-top: 20px;
+    width: 550px;
+}
+
+.menu-item {
+    color: #fff;
+    width: 200px;
+    height: 100px;
+    background-color: rgba(9, 166, 150, 0.2);
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+.menu-item:hover {
+    box-shadow: 0 0 20px #0271cc;
+}
+
+.bar {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    z-index: -2;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 0;
+    animation: rotate 1s infinite linear;
+    background-color: #0df8e1;
+    box-shadow: 0 0 20px #256cf9;
+}
+
+#clockBtn .bar {
+    background-color: #0df8e1;
+    opacity: 0;
+}
+
+#secondBtn .bar {
+    background-color: #0df8e1;
+    opacity: 0;
+}
+
+#timerBtn .bar {
+    background-color: #0df8e1;
+    opacity: 0;
+}
+
+#alarmBtn .bar {
+    background-color: #0df8e1;
+    opacity: 0;
+}
+
+.menu-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    z-index: -1;
+    left: 4px;
+    top: 4px;
+    background: url("../images/background.png") no-repeat center fixed;
+    border-radius: 15px;
+}
+
+.menu-item:hover::after {
+    box-shadow: 0 0 20px #0df8e1;
+}
+
+.menu-item p {
+    margin: 38px;
 }
 
 .clock {
+    position: relative;
+    flex: 1;
     text-align: center;
 }
 
@@ -18,7 +175,7 @@ body {
     font-weight: bolder;
     text-shadow: 0 0 20px #3a006f;
     letter-spacing: 0.05em;
-    font-size: 24px;
+    font-size: 30px;
     padding: 5px 0;
 }
 
@@ -74,7 +231,7 @@ body {
     -ms-animation: rotate 43200s infinite linear;
 }
 
-.select {
+.selectban {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
