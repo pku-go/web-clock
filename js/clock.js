@@ -1,3 +1,16 @@
+// 获取指针及表盘元素
+let secondHand = document.querySelector(".secondHand");
+let minuteHand = document.querySelector(".minuteHand");
+let hourHand = document.querySelector(".hourHand");
+let liveClock = document.querySelector(".liveCircle");
+let outClock = document.getElementById("outCircle");
+let inClock = document.getElementById("inCircle");
+let hourText = document.querySelector("#hour");
+let minuteText = document.querySelector("#minute");
+let secondText = document.querySelector("#second");
+let yearText = document.querySelector("#year");
+let monthText = document.querySelector("#month");
+let dayText = document.querySelector("#day");
 class Clock {
     constructor(hour, minute, second) {
         this.hour = hour;
@@ -22,11 +35,11 @@ class Clock {
             this.second * 0.008333333333333333;
     }
     update_time_via_angle() {
-        this.second = Math.round(this.secondAngle / 6);
+        this.second = parseInt(this.secondAngle / 6);
         // 计算分钟数
-        this.minute = Math.round(this.minuteAngle / 6);
+        this.minute = parseInt(this.minuteAngle / 6);
         // 计算小时数
-        this.hour = Math.round(this.hourAngle / 30);
+        this.hour = parseInt(this.hourAngle / 30);
         if (this.state === "PM") {
             this.hour += 12;
         }
@@ -46,14 +59,43 @@ class Clock {
     }
 }
 
-let clock = new Clock(0, 0, 0);
-// 获取指针及表盘元素
-let secondHand = document.querySelector(".secondHand");
-let minuteHand = document.querySelector(".minuteHand");
-let hourHand = document.querySelector(".hourHand");
-let liveClock = document.querySelector(".liveCircle");
-let outClock = document.getElementById("outCircle");
-let inClock = document.getElementById("inCircle");
+function get_current_clock() {
+    let hour = new Date().getHours();
+    let minute = new Date().getMinutes();
+    let second = new Date().getSeconds();
+    return new Clock(hour, minute, second);
+}
+
+let clock = get_current_clock();
+// 初始化指针角度
+clock.update_angle_via_time();
+set_new_angle();
+update_time_text();
+
+var clock_start = setInterval(
+    () => {
+        clock.second += 1;
+        // 如果秒数大于等于60，秒数归零，分钟数加1
+        if (clock.second >= 60) {
+            clock.second = 0;
+            clock.minute += 1;
+            // 如果分钟数大于等于60，分钟数归零，小时数加1
+            if (clock.minute >= 60) {
+                clock.minute = 0;
+                clock.hour += 1;
+                // 如果小时数大于等于24，小时数归零
+                if (clock.hour >= 24) {
+                    clock.hour = 0;
+                }
+            }
+        }
+        // 更新指针角度
+        clock.update_angle_via_time();
+        update_time_text();
+    },
+    // 每秒更新一次
+    1000
+);
 
 function stop_animation() {
     // 从类hourHand中移除类playHour，其余同理
@@ -103,15 +145,41 @@ function hour_mousemove(event) {
         (-Math.atan2(125 - event.offsetX, 125 - event.offsetY) * 180) / Math.PI;
     angle.toFixed(2);
     hourHand.setAttribute("style", "rotate: " + angle + "deg");
+    clock.hourAngle = angle;
+    clock.update_time_via_angle();
+    update_time_text();
     outClock.onmouseup = mouseup;
     inClock.onmouseup = mouseup;
     liveClock.onmouseup = mouseup;
     hourHand.onmouseup = mouseup;
 }
 
+function set_new_angle() {
+    secondHand.setAttribute("style", "rotate: " + clock.secondAngle + "deg");
+    minuteHand.setAttribute("style", "rotate: " + clock.minuteAngle + "deg");
+    hourHand.setAttribute("style", "rotate: " + clock.hourAngle + "deg");
+    liveAngle = (Number(clock.secondAngle) + 180) % 360;
+    liveClock.setAttribute("style", "rotate: " + liveAngle + "deg");
+    console.log(clock.secondAngle, clock.minuteAngle, clock.hourAngle);
+}
+
+function update_time_text() {
+    // 时间文本都转为两位显示
+    hourText.innerHTML = clock.hour < 10 ? "0" + clock.hour : clock.hour;
+    minuteText.innerHTML =
+        clock.minute < 10 ? "0" + clock.minute : clock.minute;
+    secondText.innerHTML =
+        clock.second < 10 ? "0" + clock.second : clock.second;
+    // 年份为四位显示
+    yearText.innerHTML = new Date().getFullYear();
+    // 月份为两位显示
+    monthText.innerHTML = new Date().getMonth() + 1;
+    // 日期为两位显示
+    dayText.innerHTML = new Date().getDate();
+}
+
 function mouseup() {
     // 移除鼠标移动事件监听
-    console.log("mouseup");
     outClock.onmousemove = null;
     inClock.onmousemove = null;
     liveClock.onmousemove = null;
@@ -143,36 +211,15 @@ function main() {
         inClock.onmousemove = hour_mousemove;
         liveClock.onmousemove = hour_mousemove;
     };
-    start_animation();
-    setInterval(function () {
-        console.log(secondHand.style.rotate);
-    }, 1000);
+
+    setTimeout(start_animation, 200);
+    // setInterval(function () {
+    //     console.log(secondHand.style.rotate);
+    // }, 1000);
     // 每秒更新秒数加1
-    setInterval(
-        () => {
-            clock.second += 1;
-            // 如果秒数大于等于60，秒数归零，分钟数加1
-            if (clock.second >= 60) {
-                clock.second = 0;
-                clock.minute += 1;
-                // 如果分钟数大于等于60，分钟数归零，小时数加1
-                if (clock.minute >= 60) {
-                    clock.minute = 0;
-                    clock.hour += 1;
-                    // 如果小时数大于等于24，小时数归零
-                    if (clock.hour >= 24) {
-                        clock.hour = 0;
-                    }
-                }
-            }
-            // 更新指针角度
-            clock.update_angle_via_time();
-            console.log(clock.hour, clock.minute, clock.second);
-            console.log(clock.hourAngle, clock.minuteAngle, clock.secondAngle);
-        },
-        // 每秒更新一次
-        1000
-    );
+    // setTimeout(() => {
+    //     clearInterval(clock_start);
+    // }, 5000);
 }
 
 main();
