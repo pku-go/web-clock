@@ -7,27 +7,19 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.time {
-    font-family: "Share Tech Mono", monospace;
-    color: #ffffff;
-    text-align: center;
-    color: #daf6ff;
-    text-shadow: 0 0 20px #3a006f, 0 0 20px rgba(10, 175, 230, 0);
-    letter-spacing: 0.05em;
-    font-size: 24px;
-    padding: 5px 0;
+.clock{
     text-align: center;
 }
 
-.date {
+.time {
     font-family: "Share Tech Mono", monospace;
-    color: #ffffff;
     text-align: center;
-    color: #daf6ff;
-    text-shadow: 0 0 20px #3a006f, 0 0 20px rgba(10, 175, 230, 0);
-    letter-spacing: 0.1em;
-    font-size: 18px;
-    text-align: center;
+    color: #afb0e7;
+    font-weight: bolder;
+    text-shadow: 0 0 20px #3a006f;
+    letter-spacing: 0.05em;
+    font-size: 24px;
+    padding: 5px 0;
 }
 
 #outCircle {

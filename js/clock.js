@@ -8,9 +8,6 @@ let inClock = document.getElementById("inCircle");
 let hourText = document.querySelector("#hour");
 let minuteText = document.querySelector("#minute");
 let secondText = document.querySelector("#second");
-let yearText = document.querySelector("#year");
-let monthText = document.querySelector("#month");
-let dayText = document.querySelector("#day");
 let lable = document.querySelector("text");
 class Clock {
     constructor(hour, minute, second) {
@@ -130,7 +127,6 @@ function second_mousemove(event) {
     secondHand.onmouseup = mouseup;
     minuteHand.onmouseup = mouseup;
     hourHand.onmouseup = mouseup;
-    secondHand.onclick = mouseup;
     lable.onmouseup = mouseup;
     document.onmouseup = mouseup;
 }
@@ -152,7 +148,6 @@ function minute_mousemove(event) {
     secondHand.onmouseup = mouseup;
     minuteHand.onmouseup = mouseup;
     hourHand.onmouseup = mouseup;
-    minuteHand.onclick = mouseup;
     lable.onmouseup = mouseup;
     document.onmouseup = mouseup;
 }
@@ -174,7 +169,6 @@ function hour_mousemove(event) {
     secondHand.onmouseup = mouseup;
     minuteHand.onmouseup = mouseup;
     hourHand.onmouseup = mouseup;
-    hourHand.onclick = mouseup;
     lable.onmouseup = mouseup;
     document.onmouseup = mouseup;
 }
@@ -194,12 +188,6 @@ function update_time_text() {
         clock.minute < 10 ? "0" + clock.minute : clock.minute;
     secondText.innerHTML =
         clock.second < 10 ? "0" + clock.second : clock.second;
-    // 年份为四位显示
-    yearText.innerHTML = new Date().getFullYear();
-    // 月份为两位显示
-    monthText.innerHTML = new Date().getMonth() + 1;
-    // 日期为两位显示
-    dayText.innerHTML = new Date().getDate();
 }
 
 function mouseup(event) {
@@ -209,7 +197,7 @@ function mouseup(event) {
     liveClock.onmousemove = null;
     lable.onmousemove = null;
     secondHand.onmousemove = null;
-    minuteHand.onmousemove = null;  
+    minuteHand.onmousemove = null;
     hourHand.onmousemove = null;
 
     console.log(clock.second, clock.minute, clock.hour);
@@ -239,12 +227,13 @@ function change_state() {
 }
 
 function start() {
-    clock_start = setInterval(run_clock, 1000);
+    if (clock_start === "pause" || clock_start === null) clock_start = setInterval(run_clock, 1000);
     setTimeout(start_animation, 300);
 }
 
 function pause() {
     clearInterval(clock_start);
+    clock_start = "pause";
     stop_animation();
 }
 
