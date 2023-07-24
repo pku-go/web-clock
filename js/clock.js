@@ -72,30 +72,28 @@ clock.update_angle_via_time();
 set_new_angle();
 update_time_text();
 
-var clock_start = setInterval(
-    () => {
-        clock.second += 1;
-        // 如果秒数大于等于60，秒数归零，分钟数加1
-        if (clock.second >= 60) {
-            clock.second = 0;
-            clock.minute += 1;
-            // 如果分钟数大于等于60，分钟数归零，小时数加1
-            if (clock.minute >= 60) {
-                clock.minute = 0;
-                clock.hour += 1;
-                // 如果小时数大于等于24，小时数归零
-                if (clock.hour >= 24) {
-                    clock.hour = 0;
-                }
+function run_clock() {
+    clock.second += 1;
+    // 如果秒数大于等于60，秒数归零，分钟数加1
+    if (clock.second >= 60) {
+        clock.second = 0;
+        clock.minute += 1;
+        // 如果分钟数大于等于60，分钟数归零，小时数加1
+        if (clock.minute >= 60) {
+            clock.minute = 0;
+            clock.hour += 1;
+            // 如果小时数大于等于24，小时数归零
+            if (clock.hour >= 24) {
+                clock.hour = 0;
             }
         }
-        // 更新指针角度
-        clock.update_angle_via_time();
-        update_time_text();
-    },
-    // 每秒更新一次
-    1000
-);
+    }
+    // 更新指针角度
+    clock.update_angle_via_time();
+    update_time_text();
+}
+
+var clock_start = null;
 
 function stop_animation() {
     // 从类hourHand中移除类playHour，其余同理
@@ -186,6 +184,16 @@ function mouseup() {
     start_animation();
 }
 
+function start() {
+    clock_start = setInterval(run_clock, 1000);
+    setTimeout(start_animation, 50);
+}
+
+function end() {
+    clearInterval(clock_start);
+    stop_animation();
+}
+
 function main() {
     secondHand.onmousedown = function () {
         stop_animation();
@@ -211,15 +219,7 @@ function main() {
         inClock.onmousemove = hour_mousemove;
         liveClock.onmousemove = hour_mousemove;
     };
-
-    setTimeout(start_animation, 200);
-    // setInterval(function () {
-    //     console.log(secondHand.style.rotate);
-    // }, 1000);
-    // 每秒更新秒数加1
-    // setTimeout(() => {
-    //     clearInterval(clock_start);
-    // }, 5000);
+    start();
 }
 
 main();
