@@ -79,9 +79,13 @@ function run_clock() {
         if (clock.minute >= 60) {
             clock.minute = 0;
             clock.hour += 1;
+            if(clock.hour === 12) change_state(); 
             // 如果小时数大于等于24，小时数归零
             if (clock.hour >= 24) {
                 clock.hour = 0;
+                if (clock.state === "PM") {
+                    change_state();
+                }
             }
         }
     }
