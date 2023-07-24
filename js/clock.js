@@ -42,7 +42,11 @@ class Clock {
         if (this.state === "PM") {
             this.hour += 12;
             this.hour %= 24;
-            if (this.hour === 0) this.state = "AM";
+            if (this.hour === 0) lable.innerHTML = "AM";
+            else lable.innerHTML = "PM";
+        } else {
+            if (this.hour === 12) lable.innerHTML = "PM";
+            else lable.innerHTML = "AM";
         }
     }
     set_time(hour, minute, second) {
