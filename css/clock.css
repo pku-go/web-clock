@@ -7,7 +7,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.clock{
+.clock {
     text-align: center;
 }
 
@@ -55,24 +55,33 @@ body {
 
 .playSecond {
     animation: rotate 60s infinite linear;
+    -moz-animation: rotate 60s infinite linear;
+    -webkit-animation: rotate 60s infinite linear;
+    -ms-animation: rotate 60s infinite linear;
 }
 
 .playMinute {
     animation: rotate 3600s infinite linear;
+    -moz-animation: rotate 3600s infinite linear;
+    -webkit-animation: rotate 3600s infinite linear;
+    -ms-animation: rotate 3600s infinite linear;
 }
 
 .playHour {
     animation: rotate 43200s infinite linear;
+    -moz-animation: rotate 43200s infinite linear;
+    -webkit-animation: rotate 43200s infinite linear;
+    -ms-animation: rotate 43200s infinite linear;
 }
 
-.select{
+.select {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
 }
 
-text{
+text {
     font-size: 18px;
     fill: #d7c0ee;
 }
