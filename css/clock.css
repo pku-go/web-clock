@@ -231,6 +231,27 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     -ms-animation: rotate 43200s infinite linear;
 }
 
+.playSecondReverse {
+    animation: rotateReverse 60s infinite linear;
+    -moz-animation: rotateReverse 60s infinite linear;
+    -webkit-animation: rotateReverse 60s infinite linear;
+    -ms-animation: rotateReverse 60s infinite linear;
+}
+
+.playMinuteReverse {
+    animation: rotateReverse 3600s infinite linear;
+    -moz-animation: rotateReverse 3600s infinite linear;
+    -webkit-animation: rotateReverse 3600s infinite linear;
+    -ms-animation: rotateReverse 3600s infinite linear;
+}
+
+.playHourReverse {
+    animation: rotateReverse 43200s infinite linear;
+    -moz-animation: rotateReverse 43200s infinite linear;
+    -webkit-animation: rotateReverse 43200s infinite linear;
+    -ms-animation: rotateReverse 43200s infinite linear;
+}
+
 .selectban {
     user-select: none;
     -moz-user-select: none;
@@ -249,5 +270,14 @@ text {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateReverse {
+    50% {
+        transform: rotate(-180deg);
+    }
+    100% {
+        transform: rotate(-360deg);
     }
 }
