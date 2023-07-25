@@ -375,6 +375,7 @@ function choseBtn (btn) {
             clear_timer_items();
             clear_stopwatch_items();
             clearAlarm();
+            use_alarm_special();
             break;
         case "secondBtn":
             memory_clock_time();
@@ -382,16 +383,17 @@ function choseBtn (btn) {
             clear_clock_items();
             clear_timer_items();
             show_stopwatch_items();
-            clearAlarm();
+            clearAlarm_special();
             break;
         case "timerBtn":
             memory_clock_time();
             clear_clock_items();
             clear_stopwatch_items();
             show_timer_items();
-            clearAlarm();
+            clearAlarm_special();
             break;
         case "alarmBtn":
+            back_to_memory_time();
             clear_clock_items();
             clear_stopwatch_items();
             clear_timer_items();
@@ -674,40 +676,44 @@ function pauseClock () {
     set_new_angle();
 }
 
+var alarmMusic = document.getElementById('alarmMusic');
+var Interval = setInterval(detectList, 100);
+
+document.getElementById('audioFile').addEventListener('change', function(){
+    const file = this.files[0];
+    if(file) {
+        const selectedMusic = URL.createObjectURL(file);
+        alarmMusic.src = selectedMusic;
+    }
+})
+
 function use_alarm() {
     var button = document.getElementById('add_alarm');
     button.style.display = "block";
+    var alarm_list = document.getElementById('alarm_list');
+    var liCount = alarm_list.getElementsByTagName('li').length;
+    if(liCount !== 0) alarm_list.setAttribute("style", "display: flex");
+    if (Interval === null) {
+        Interval = setInterval(detectList, 100);
+    }
+}
+
+function use_alarm_special() {
+    var alarm_list = document.getElementById('alarm_list');
+    var alarm_list = document.getElementById('alarm_list');
+    var liCount = alarm_list.getElementsByTagName('li').length;
+    if(liCount !== 0) alarm_list.setAttribute("style", "display: flex");
+    if (Interval === null) {
+        Interval = setInterval(detectList, 100);
+    }
 }
 
 function add_alarm() {
     var alarmSet = document.getElementById('alarmSet');
-    alarmSet.classList.toggle('hidden');
-    alarmSet.classList.add('alarmContainer');
-}
-
-const hourSelect = document.getElementById('hourSelect');
-for(let i = 0; i <= 23; i++){
-    const option = document.createElement('option');
-    if(i < 10) i = '0' + i;
-    option.textContent = i;
-    option.value = i;
-    hourSelect.appendChild(option);
-}
-const minuteSelect = document.getElementById('minuteSelect');
-for(let i = 0; i <= 59; i++){
-    const option = document.createElement('option');
-    if(i < 10) i = '0' + i;
-    option.textContent = i;
-    option.value = i;
-    minuteSelect.appendChild(option);
-}
-const secondSelect = document.getElementById('secondSelect');
-for(let i = 0; i <= 59; i++){
-    const option = document.createElement('option');
-    if(i < 10) i = '0' + i;
-    option.textContent = i;
-    option.value = i;
-    secondSelect.appendChild(option);
+    alarmSet.setAttribute("style", "display: flex")
+    if (Interval === null) {
+        Interval = setInterval(detectList, 100);
+    }
 }
 
 function always_alarmRing(alarmTime) {
@@ -716,19 +722,17 @@ function always_alarmRing(alarmTime) {
     var second = document.getElementById('second');
     var nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
     if(alarmTime === nowTime){
-        const audio = document.getElementById('alarmMusic');
-        audio.play();
+        alarmMusic.play();
     }
 }
 
 function sure(){
     var alarmSet = document.getElementById('alarmSet');
-    alarmSet.classList.add('hidden');
-    alarmSet.classList.toggle('alarmContainer');
+    alarmSet.setAttribute("style", "display: none");
     var alarm_list = document.getElementById('alarm_list');
-    const alarmHour = document.getElementById('hourSelect').value;
-    const alarmMinute = document.getElementById('minuteSelect').value;
-    const alarmSecond = document.getElementById('secondSelect').value;
+    var timeSelect = document.getElementById('timeSelect');
+    var alarmTime = timeSelect.value;
+    if(timeSelect.value === '') alarmTime = "00:00:00";
     const Types = document.querySelectorAll('input[name="setType"]');
     let selectType = null;
     Types.forEach(Type => {
@@ -736,11 +740,11 @@ function sure(){
             selectType = Type.value;
         }
     });
-    var alarmTime = alarmHour + ':' + alarmMinute + ':' + alarmSecond;
-    var alarmText = alarmHour + ':' + alarmMinute + ':' + alarmSecond + ' ' + selectType;
+    var alarmText = alarmTime + ' ' + selectType;
     var newAlarm = document.createElement('li');
     var button = document.createElement('button');
     button.textContent = '删除';
+    button.classList.add('deleteBtn');
     var interValid = null;
     if(selectType === 'once'){
             interValid = setInterval(function once_alarmRing(alarmTime) {
@@ -750,8 +754,7 @@ function sure(){
             var nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
             if(alarmTime === nowTime){
                 clearInterval(interValid);
-                const audio = document.getElementById('alarmMusic');
-                audio.play();
+                alarmMusic.play();
             }
         }, 1000, alarmTime);
     }
@@ -769,21 +772,30 @@ function sure(){
 
 function no(){
     var alarmSet = document.getElementById('alarmSet');
-    alarmSet.classList.add('hidden');
-    alarmSet.classList.toggle('alarmContainer');
+    alarmSet.setAttribute("style", "display: none");
 }
 
 function clearAlarm() {
     var div = document.getElementById('add_alarm');
-    div.style.display = "none";
+    div.style.display = "none"; 
 }
 
-function selectMusic() {
-    const audioFileInput = document.getElementById('audioFile');
-    const audio = document.getElementById('alarmMusic');
-    const file = audioFileInput.files[0];
-    if(file){
-        const selectedMusic = URL.createObjectURL(file);
-        audio.src = selectedMusic;
+function detectList() {
+    var alarm_list = document.getElementById('alarm_list');
+    var liCount = alarm_list.getElementsByTagName('li').length;
+    if(liCount === 0) {
+        alarm_list.setAttribute("style", "display: none");
     }
+    else {
+        alarm_list.setAttribute('style', "display: flex");
+    }
+}
+
+function clearAlarm_special() {
+    clearInterval(Interval);
+    Interval = null;
+    var div = document.getElementById('add_alarm');
+    div.style.display = "none";
+    var alarm_list = document.getElementById('alarm_list');
+    alarm_list.setAttribute("style", "display: none");
 }

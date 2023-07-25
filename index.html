@@ -392,12 +392,9 @@
                     <button id="add_alarm" onclick="add_alarm()">
                         添加闹钟
                     </button>
-                    <div id="alarmSet" class="hidden">
+                    <div id="alarmSet" class="alarmContainer">
                         <div class="alarmContent">
-                            <label for="selectBox">选择时间：</label>
-                            <select id="hourSelect"></select>
-                            <select id="minuteSelect"></select>
-                            <select id="secondSelect"></select>
+                            <input type="time" step="1" id="timeSelect">
                             <label
                                 ><input
                                     type="radio"
@@ -415,10 +412,7 @@
                             >
                         </div>
                         <div class="alarmContent">
-                            <input type="file" id="audioFile" />
-                            <button id="selectMusic" onclick="selectMusic()">
-                                选取铃声
-                            </button>
+                            <input type="file" id="audioFile" accept="audio/*"/>
                             <button id="sure" onclick="sure()">确认</button>
                             <button id="no" onclick="no()">取消</button>
                         </div>

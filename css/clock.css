@@ -408,23 +408,27 @@ text {
     background-position: center;
 }
 
-.hidden {
+#alarm_list {
+    position: absolute;
+    right: -450px;
+    height: 280px;
+    background-color: rgba(0, 0, 0, 0.3);
     display: none;
+    align-items:flex-start;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 100;
+    border-radius: 25px;
+    flex-flow: column;
+    margin-top: 20px;
+    width: 250px;
+    overflow: scroll;
 }
 
 #alarm_list li {
     color: white;
     list-style-position: inside;
     text-align: left;
-}
-
-#add_alarm {
-    position: relative;
-    width: 100px;
-}
-
-#alarmSet {
-    color: white;
 }
 
 #add_alarm {
@@ -449,14 +453,10 @@ text {
 }
 
 #alarmSet {
+    color: white;
     position: absolute;
-    top: 250px;
-    right: -600px;
-}
-
-#alarm_list {
-    position: absolute;
-    right: -400px;
+    top: 200px;
+    right: -530px;
 }
 
 #alarmMusic {
@@ -464,11 +464,53 @@ text {
 }
 
 .alarmContainer {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     flex-direction: column;
 }
 
 .content {
     flex-grow: 1;
+}
+
+#alarm_feature button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
+
+#timeSelect {
+    width: 140px;
+    padding-left: 8px;
+    padding-right: 0px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+}
+
+#alarmSet button {
+    margin-top: 35px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+.deleteBtn {
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
 }
