@@ -488,7 +488,6 @@ function start_timer() {
                 setTimeout(function () {
                     timerAudio.pause();
                 }, 5000);
-                // timerAudio.pause();
                 timerAudio.currentTime = 0;
                 return;
             }
