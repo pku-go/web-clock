@@ -10,6 +10,10 @@ const minuteText = document.querySelector("#minute");
 const secondText = document.querySelector("#second");
 const label = document.querySelector("text"); // 小时状态（AM/PM）标签
 
+let temp_clock = null; // 临时时钟对象
+let leave_second = 0; // 离开时钟的秒数
+let count_leave_second = null; // 离开时钟的秒数计数器
+
 // 获取按钮元素
 const clockBtn = document.getElementById("clockBtn");
 const secondBtn = document.getElementById("secondBtn");
@@ -286,6 +290,54 @@ function pause() {
     stop_animation();
 }
 
+// 记住当前时间
+function memory_clock_time() {
+    if (temp_clock === null || temp_clock === undefined)
+        temp_clock = new Clock(clock.hour, clock.minute, clock.second);
+    if (count_leave_second === null) {
+        count_leave_second = setInterval(() => {
+            leave_second++;
+        }, 1000);
+    }
+}
+
+// 切换回记住的时间
+function back_to_memory_time() {
+    if (temp_clock === null) {
+        clock = get_current_clock();
+    } else if (temp_clock === undefined) {
+        // do nothing
+    } else {
+        clock = temp_clock;
+        clearInterval(count_leave_second);
+        count_leave_second = null;
+        let hour = parseInt(leave_second / 3600);
+        let minute = parseInt((leave_second % 3600) / 60);
+        let second = parseInt((leave_second % 3600) % 60);
+        clock.second += second;
+        if (clock.second >= 60) {
+            clock.minute += parseInt(clock.second / 60);
+            clock.second %= 60;
+        }
+        clock.minute += minute;
+        if (clock.minute >= 60) {
+            clock.hour += parseInt(clock.minute / 60);
+            clock.minute %= 60;
+        }
+        clock.hour += hour;
+        if (clock.hour >= 24) {
+            clock.hour %= 24;
+        }
+        leave_second = 0;
+        temp_clock = undefined;
+    }
+    pause();
+    clock.update_angle_via_time();
+    set_new_angle();
+    update_time_text();
+    start();
+}
+
 // 切换选中按钮
 function choseBtn(btn) {
     let i = 0;
@@ -300,17 +352,16 @@ function choseBtn(btn) {
     }
     switch (btn.id) {
         case "clockBtn":
-            clock = get_current_clock();
-            clock.update_angle_via_time();
-            set_new_angle();
-            update_time_text();
+            back_to_memory_time();
             show_clock_items();
             break;
         case "secondBtn":
             clear_clock_items();
+            back_to_memory_time();
             break;
         case "timerBtn":
             clear_clock_items();
+            back_to_memory_time
             break;
         case "alarmBtn":
             clear_clock_items();
@@ -398,6 +449,7 @@ function set_time_via_input() {
             second === undefined
         ) {
             start();
+            disallowDrop();
             return;
         }
 
