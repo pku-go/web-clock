@@ -376,11 +376,11 @@ function choseBtn (btn) {
         clear_stopwatch_items();
         break;
     case 'secondBtn':
+        memory_clock_time();
         resetClock();
         clear_clock_items();
         clear_timer_items();
         show_stopwatch_items();
-        memory_clock_time();
         break;
     case 'timerBtn':
         clear_clock_items();
