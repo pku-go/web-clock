@@ -10,6 +10,10 @@ body {
     display: flex;
 }
 
+line{
+    stroke: #c48a8a;
+}
+
 .control {
     flex: 3;
     display: flex;
