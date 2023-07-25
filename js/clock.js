@@ -33,6 +33,10 @@ const btn_hover_list = [
     alarmBtnBack,
 ];
 
+let settingBtnTimer = document.getElementById("settingBtnTimer");
+let timerInput = document.getElementById("timerInput");
+let timerItems = document.getElementById("timerItems");
+
 // 时钟对象构造函数
 class Clock {
     constructor(hour, minute, second) {
@@ -149,6 +153,22 @@ function start_animation() {
     minuteHand.classList.add("playMinute");
     secondHand.classList.add("playSecond");
     liveClock.classList.add("playSecond");
+}
+
+function stop_animation_reverse() {
+    // 从类hourHand中移除类playHourReverse，其余同理
+    hourHand.classList.remove("playHourReverse");
+    minuteHand.classList.remove("playMinuteReverse");
+    secondHand.classList.remove("playSecondReverse");
+    liveClock.classList.remove("playSecondReverse");
+}
+
+function start_animation_reverse() {
+    // 在类hourHand中加入类playHourReverse，其余同理
+    hourHand.classList.add("playHourReverse");
+    minuteHand.classList.add("playMinuteReverse");
+    secondHand.classList.add("playSecondReverse");
+    liveClock.classList.add("playSecondReverse");
 }
 
 // 处理鼠标拖动秒针的事件
@@ -305,15 +325,20 @@ function choseBtn(btn) {
             set_new_angle();
             update_time_text();
             show_clock_items();
+            clear_timer_items();
             break;
         case "secondBtn":
+            // to do
+            clear_timer_items();
             clear_clock_items();
             break;
         case "timerBtn":
             clear_clock_items();
+            show_timer_items();
             break;
         case "alarmBtn":
             clear_clock_items();
+            clear_timer_items();
             break;
     }
 }
@@ -421,6 +446,101 @@ function clear_clock_items() {
 // 显示时钟相关元素
 function show_clock_items() {
     clockItems.setAttribute("style", "display: block;");
+}
+
+var timer_start = null;
+let targetTime = 0;
+let countdownInterval = 0;
+
+function start_timer() {
+    if (timer_start === null) {
+        let targetHour = timerInput.value.split(":")[0];
+        let targetMinute = timerInput.value.split(":")[1];
+        let targetSecond = timerInput.value.split(":")[2];
+
+        if(targetHour == undefined || targetMinute == undefined || targetSecond == undefined) {
+            alert("未设置时间！");
+            return;
+        }
+
+        targetHour = parseInt(targetHour);
+        targetMinute = parseInt(targetMinute);
+        targetSecond = parseInt(targetSecond);
+        targetTime = targetHour * 3600 + targetMinute * 60 + targetSecond;
+
+        if (targetTime === 0) {
+            alert("设定时间必须大于0");
+            return;
+        }
+
+        pause();
+        clock.set_time(targetHour, targetMinute, targetSecond);
+        set_new_angle();
+        update_time_text();
+
+        timer_start = "pause";
+    }
+
+    if (timer_start === "pause") {
+        timer_start = "start";
+        start_animation_reverse();
+        countdownInterval = setInterval(function () {
+            if (targetTime > 1) {
+                targetTime--;
+                let remainingHour = Math.floor(targetTime / 3600);
+                let remainingMinute = Math.floor((targetTime % 3600) / 60);
+                let remainingSecond = targetTime % 60;
+                clock.set_time(remainingHour, remainingMinute, remainingSecond);
+                update_time_text();
+            } else {
+                clearInterval(countdownInterval);
+                clock.set_time(0, 0, 0);
+                clock.update_angle_via_time();
+                set_new_angle();
+                update_time_text();
+                stop_animation_reverse();
+                timerInput.value = "--:--:--";
+                timer_start = null;
+                var timerAudio = document.getElementById("timerAudio");
+                timerAudio.play();
+
+                setTimeout(function () {
+                    timerAudio.pause();
+                }, 5000);
+                timerAudio.currentTime = 0;
+                return;
+            }
+        }, 1000);
+        return;
+    }
+
+    if (timer_start === "start") {
+        clearInterval(countdownInterval);
+        stop_animation_reverse();
+        timer_start = "pause";
+        clock.update_angle_via_time();
+        set_new_angle();
+        return;
+    }
+
+}
+
+function reset_timer() {
+    clearInterval(countdownInterval);
+    stop_animation_reverse();
+    clock.set_time(0, 0, 0);
+    clock.update_angle_via_time();
+    set_new_angle();
+    update_time_text();
+    timer_start = null;
+}
+
+function clear_timer_items() {
+    timerItems.setAttribute("style", "display: none;");
+}
+
+function show_timer_items() {
+    timerItems.setAttribute("style", "display: block;");
 }
 
 // 主函数
