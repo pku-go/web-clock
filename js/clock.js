@@ -380,10 +380,12 @@ function choseBtn(btn) {
             // to do
             clear_timer_items();
             clear_clock_items();
-            back_to_memory_time();
+            memory_clock_time();
+
             break;
         case "timerBtn":
             clear_clock_items();
+            memory_clock_time();
             break;
         case "alarmBtn":
             clear_clock_items();
