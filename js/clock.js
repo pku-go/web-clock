@@ -599,7 +599,6 @@ function main () {
     settingBtn.onclick = set_time_via_input; // 设置时间按钮点击事件
     startBtnTimer.onclick = start_timer;
     resetBtnTimer.onclick = reset_timer;
-    
     // 初始化指针角度
     clock.update_angle_via_time();
     set_new_angle();
