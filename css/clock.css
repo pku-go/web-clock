@@ -72,10 +72,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     position: absolute;
     justify-content: center;
     align-items: center;
-    width: 150px;
+    width: 175px;
     height: 70px;
     overflow: visible;
-    top: 245px;
+    top: 220px;
     left: 240px;
 }
 
@@ -90,18 +90,22 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border: 1px solid #fff;
     background-color: rgba(0, 0, 0, 0.3);
     color: #b6bbd2;
-    display: block;
 }
 
-.set_timer_time #startBtnTimer {
-    display: block;
-    float: left;
+.set_timer_time button {
+    /* margin-top: 15px; */
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
 }
 
-.set_timer_time #resetBtnTimer {
-    display: block;
-    float: left;
-}
 
 #timerAudio {
     display: none;
