@@ -521,17 +521,6 @@ let timer_start = null;
 let targetTime = 0;
 let countdownInterval = 0;
 
-const timerAlarm = document.getElementById('timerAlarmInput');
-
-let timerAudio = document.getElementById('timerAudio');
-
-timerAlarm.addEventListener('change', function () {
-    let selectedTimerAudio = this.files[0];
-    if (selectedTimerAudio) {
-        timerAudio.src = URL.createObjectURL(selectedTimerAudio);
-    }
-});
-
 function start_timer () {
     if (timer_start === null) {
         let targetHour = timerInput.value.split(':')[0];
@@ -581,6 +570,7 @@ function start_timer () {
                 stop_animation_reverse();
                 timerInput.value = '--:--:--';
                 timer_start = null;
+                let timerAudio = document.getElementById('timerAudio');
                 timerAudio.play();
                 document.getElementById('timeIsUp').innerText = '时间到！'
 
@@ -620,7 +610,7 @@ function clear_timer_items () {
 }
 
 function show_timer_items () {
-    timerItems.setAttribute('style', 'display: flex;');
+    timerItems.setAttribute('style', 'display: block;');
 }
 
 // 主函数

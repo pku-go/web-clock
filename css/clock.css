@@ -77,19 +77,15 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .set_timer_time {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
     position: absolute;
     align-items: center;
-    width: 370px;
     overflow: visible;
     top: 220px;
     left: 250px;
 }
 
 .set_timer_time #timerInput {
-    width: 150px;
+    width: 130px;
     padding-left: 8px;
     padding-right: 0px;
     font-size: 20px;
@@ -101,8 +97,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .set_timer_time button {
-    margin-left: 10px;
-    width: 70px;
+    margin-top: 5px;
     font-size: 15px;
     font-weight: lighter;
     text-align: center;
@@ -118,23 +113,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border-color: #0e5dd4;
 }
 
-.set_timer_time #timerAlarmLabel {
-    margin-top: 5px;
-    width: 80px;
-    color: #b6bbd2;
-    font-size: 15px;
-    font-weight: lighter;
-}
-
-.set_timer_time #timerAlarmInput {
-    margin-top: 5px;
-    color: #b6bbd2;
-    font-size: 15px;
-    font-weight: lighter;
-}
-
 .set_timer_time #timeIsUp {
-    font-size: 36px;
+    margin-top: 5px;
+    font-size: 25px;
     color: #b6bbd2;
 }
 
@@ -337,6 +318,7 @@ text {
     font-size: 18px;
     fill: #d7c0ee;
 }
+
 /* 让某个组件旋转1圈动画 */
 @keyframes rotate {
     50% {
@@ -346,6 +328,8 @@ text {
         transform: rotate(360deg);
     }
 }
+
+/* 让某个组件逆时针旋转1圈动画 */
 @keyframes rotateReverse {
     50% {
         transform: rotate(-180deg);
@@ -354,6 +338,7 @@ text {
         transform: rotate(-360deg);
     }
 }
+
 .control-buttons {
     position: absolute;
     top: 120px;
@@ -363,6 +348,7 @@ text {
     flex-direction: column;
     align-items: center;
 }
+
 .control-buttonreset{
     width: 50px;
     height: 50px;
