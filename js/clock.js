@@ -1,14 +1,14 @@
 // 获取指针及表盘元素
-const secondHand = document.querySelector(".secondHand");
-const minuteHand = document.querySelector(".minuteHand");
-const hourHand = document.querySelector(".hourHand");
-const liveClock = document.querySelector(".liveCircle");
-const outClock = document.getElementById("outCircle");
-const inClock = document.getElementById("inCircle");
-const hourText = document.querySelector("#hour");
-const minuteText = document.querySelector("#minute");
-const secondText = document.querySelector("#second");
-const label = document.querySelector("text"); // 小时状态（AM/PM）标签
+const secondHand = document.querySelector('.secondHand');
+const minuteHand = document.querySelector('.minuteHand');
+const hourHand = document.querySelector('.hourHand');
+const liveClock = document.querySelector('.liveCircle');
+const outClock = document.getElementById('outCircle');
+const inClock = document.getElementById('inCircle');
+const hourText = document.querySelector('#hour');
+const minuteText = document.querySelector('#minute');
+const secondText = document.querySelector('#second');
+const label = document.querySelector('text'); // 小时状态（AM/PM）标签
 let temp_clock = null; // 临时时钟对象
 let leave_second = 0; // 离开时钟的秒数
 let count_leave_second = null; // 离开时钟的秒数计数器
@@ -23,9 +23,9 @@ const timerBtnBack = document.querySelector('#timerBtn .bar');
 const alarmBtnBack = document.querySelector('#alarmBtn .bar');
 
 // 时钟相关按钮及输入
-const settingBtn = document.getElementById("settingBtn"); // 设置时间按钮
-const clockInput = document.getElementById("clockInput"); // 时间输入框
-const clockItems = document.getElementById("clockItems"); // 时钟相关元素容器
+const settingBtn = document.getElementById('settingBtn'); // 设置时间按钮
+const clockInput = document.getElementById('clockInput'); // 时间输入框
+const clockItems = document.getElementById('clockItems'); // 时钟相关元素容器
 // 停表相关元素
 const stopwatchItems = document.getElementById('stopwatchItems');
 const stopwatchBtn = document.getElementById('startStopButton');
@@ -153,11 +153,11 @@ function stop_animation () {
 }
 
 // 开始动画
-function start_animation() {
-    hourHand.classList.add("playHour");
-    minuteHand.classList.add("playMinute");
-    secondHand.classList.add("playSecond");
-    liveClock.classList.add("playSecond");
+function start_animation () {
+    hourHand.classList.add('playHour');
+    minuteHand.classList.add('playMinute');
+    secondHand.classList.add('playSecond');
+    liveClock.classList.add('playSecond');
 }
 function stop_animation_reverse () {
     // 从类hourHand中移除类playHourReverse，其余同理
@@ -369,30 +369,30 @@ function choseBtn (btn) {
         }
     }
     switch (btn.id) {
-        case "clockBtn":
-            back_to_memory_time();
-            show_clock_items();
-            clear_timer_items();
-            clear_stopwatch_items();
-            break;
-        case "secondBtn":
-            resetClock();
-            clear_clock_items();
-            clear_timer_items();
-            show_stopwatch_items();
-            memory_clock_time();
-            break;
-        case "timerBtn":
-            clear_clock_items();
-            clear_stopwatch_items();
-            show_timer_items();
-            memory_clock_time();
-            break;
-        case "alarmBtn":
-            clear_clock_items();
-            clear_stopwatch_items();
-            clear_timer_items();
-            break;
+    case 'clockBtn':
+        back_to_memory_time();
+        show_clock_items();
+        clear_timer_items();
+        clear_stopwatch_items();
+        break;
+    case 'secondBtn':
+        resetClock();
+        clear_clock_items();
+        clear_timer_items();
+        show_stopwatch_items();
+        memory_clock_time();
+        break;
+    case 'timerBtn':
+        clear_clock_items();
+        clear_stopwatch_items();
+        show_timer_items();
+        memory_clock_time();
+        break;
+    case 'alarmBtn':
+        clear_clock_items();
+        clear_stopwatch_items();
+        clear_timer_items();
+        break;
     }
 }
 
@@ -498,8 +498,8 @@ function clear_clock_items () {
 }
 
 // 显示时钟相关元素
-function show_clock_items() {
-    clockItems.setAttribute("style", "display: block;");
+function show_clock_items () {
+    clockItems.setAttribute('style', 'display: block;');
 }
 // 清除秒表功能相关元素
 function clear_stopwatch_items () {
