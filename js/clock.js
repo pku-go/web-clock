@@ -768,6 +768,8 @@ function no(){
 function clearAlarm() {
     var div = document.getElementById('add_alarm');
     div.style.display = "none"; 
+    var alarmSet = document.getElementById('alarmSet');
+    alarmSet.setAttribute("style", "display: none");
 }
 
 function detectList() {
@@ -788,4 +790,6 @@ function clearAlarm_special() {
     div.style.display = "none";
     var alarm_list = document.getElementById('alarm_list');
     alarm_list.setAttribute("style", "display: none");
+    var alarmSet = document.getElementById('alarmSet');
+    alarmSet.setAttribute("style", "display: none");
 }
