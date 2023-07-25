@@ -111,13 +111,15 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .set_timer_time #timerAlarmLabel {
+    margin-top: 5px;
     width: 80px;
     color: #b6bbd2;
     font-size: 15px;
     font-weight: lighter;
 }
 
-.set_timer_time #timerAlarm {
+.set_timer_time #timerAlarmInput {
+    margin-top: 5px;
     color: #b6bbd2;
     font-size: 15px;
     font-weight: lighter;

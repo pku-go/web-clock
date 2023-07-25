@@ -519,7 +519,7 @@ let timer_start = null;
 let targetTime = 0;
 let countdownInterval = 0;
 
-const timerAlarm = document.getElementById('timerAlarm');
+const timerAlarm = document.getElementById('timerAlarmInput');
 
 let timerAudio = document.getElementById('timerAudio');
 
