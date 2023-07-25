@@ -68,6 +68,35 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border-color: #0e5dd4;
 }
 
+.set_timer_time {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 70px;
+    overflow: visible;
+    top: 245px;
+    left: 240px;
+}
+
+.set_timer_time #timerInput {
+    width: 140px;
+    padding-left: 8px;
+    padding-right: 0px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    display: block;
+}
+
+.set_timer_time button {
+    display: block;
+}
+
 .menu {
     flex: 2;
     height: auto;
