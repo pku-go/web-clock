@@ -305,15 +305,19 @@ function choseBtn(btn) {
             set_new_angle();
             update_time_text();
             show_clock_items();
+            clearAlarm();
             break;
         case "secondBtn":
             clear_clock_items();
+            clearAlarm();
             break;
         case "timerBtn":
             clear_clock_items();
+            clearAlarm();
             break;
         case "alarmBtn":
             clear_clock_items();
+            use_alarm();
             break;
     }
 }
@@ -438,13 +442,14 @@ function main() {
 main();
 
 function use_alarm() {
-    var div = document.getElementById('alarm_feature');
-    div.style.display = "block";
+    var button = document.getElementById('add_alarm');
+    button.style.display = "block";
 }
 
 function add_alarm() {
     var alarmSet = document.getElementById('alarmSet');
     alarmSet.classList.toggle('hidden');
+    alarmSet.classList.add('alarmContainer');
 }
 
 const hourSelect = document.getElementById('hourSelect');
@@ -472,9 +477,21 @@ for(let i = 0; i <= 59; i++){
     secondSelect.appendChild(option);
 }
 
+function always_alarmRing(alarmTime) {
+    var hour = document.getElementById('hour');
+    var minute = document.getElementById('minute');
+    var second = document.getElementById('second');
+    var nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
+    if(alarmTime === nowTime){
+        const audio = document.getElementById('alarmMusic');
+        audio.play();
+    }
+}
+
 function sure(){
     var alarmSet = document.getElementById('alarmSet');
     alarmSet.classList.add('hidden');
+    alarmSet.classList.toggle('alarmContainer');
     var alarm_list = document.getElementById('alarm_list');
     const alarmHour = document.getElementById('hourSelect').value;
     const alarmMinute = document.getElementById('minuteSelect').value;
@@ -486,14 +503,33 @@ function sure(){
             selectType = Type.value;
         }
     });
-    var alarmTime = alarmHour + ':' + alarmMinute + ':' + alarmSecond + ' ' + selectType;
+    var alarmTime = alarmHour + ':' + alarmMinute + ':' + alarmSecond;
+    var alarmText = alarmHour + ':' + alarmMinute + ':' + alarmSecond + ' ' + selectType;
     var newAlarm = document.createElement('li');
     var button = document.createElement('button');
     button.textContent = '删除';
+    var interValid = null;
+    if(selectType === 'once'){
+            interValid = setInterval(function once_alarmRing(alarmTime) {
+            var hour = document.getElementById('hour');
+            var minute = document.getElementById('minute');
+            var second = document.getElementById('second');
+            var nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
+            if(alarmTime === nowTime){
+                clearInterval(interValid);
+                const audio = document.getElementById('alarmMusic');
+                audio.play();
+            }
+        }, 1000, alarmTime);
+    }
+    else{
+        interValid = setInterval(always_alarmRing, 1000, alarmTime);
+    }
     button.onclick = function() {
         alarm_list.removeChild(newAlarm);
+        clearInterval(interValid);
     }
-    newAlarm.appendChild(document.createTextNode(alarmTime));
+    newAlarm.appendChild(document.createTextNode(alarmText));
     newAlarm.appendChild(button);
     alarm_list.appendChild(newAlarm);
 }
@@ -501,4 +537,20 @@ function sure(){
 function no(){
     var alarmSet = document.getElementById('alarmSet');
     alarmSet.classList.add('hidden');
+    alarmSet.classList.toggle('alarmContainer');
+}
+
+function clearAlarm() {
+    var div = document.getElementById('add_alarm');
+    div.style.display = "none";
+}
+
+function selectMusic() {
+    const audioFileInput = document.getElementById('audioFile');
+    const audio = document.getElementById('alarmMusic');
+    const file = audioFileInput.files[0];
+    if(file){
+        const selectedMusic = URL.createObjectURL(file);
+        audio.src = selectedMusic;
+    }
 }
