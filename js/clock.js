@@ -378,13 +378,14 @@ function choseBtn(btn) {
             break;
         case "secondBtn":
             // to do
-            clear_timer_items();
             clear_clock_items();
+            clear_timer_items();
             memory_clock_time();
 
             break;
         case "timerBtn":
             clear_clock_items();
+            show_timer_items();
             memory_clock_time();
             break;
         case "alarmBtn":
