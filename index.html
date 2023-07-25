@@ -282,13 +282,10 @@
                         设置时间
                     </button>
                 </div>
-                 <!-- start stopwatchbuttom -->
                  <div class="control-buttons" id="stopwatchItems">
                     <div type="control-buttonreset" class="control-buttonreset" onclick="resetClock()"></div>
                     <div type="control-button"  class="control-button" id="startStopButton" ></div>
                 </div>
-                <!-- end stopwatchbuttom-->
-
                 <div class="set_timer_time" id="timerItems">
                     <input type="time" step="1" id="timerInput" />
                     <button
@@ -305,6 +302,7 @@
                     >
                         重置
                     </button>
+                    <input type="file" id="timerAlarm" accept="audio/*">
                 </div>
                 <audio id="timerAudio" src="audio/Never Gonna Give You Up.mp3"></audio>
                 <div id="alarm_feature">

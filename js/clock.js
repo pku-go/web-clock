@@ -518,6 +518,17 @@ let timer_start = null;
 let targetTime = 0;
 let countdownInterval = 0;
 
+const timerAlarm = document.getElementById('timerAlarm');
+
+let timerAudio = document.getElementById('timerAudio');
+
+timerAlarm.addEventListener('change', function () {
+    let selectedTimerAudio = this.files[0];
+    if (selectedTimerAudio) {
+        timerAudio.src = URL.createObjectURL(selectedTimerAudio);
+    }
+});
+
 function start_timer () {
     if (timer_start === null) {
         let targetHour = timerInput.value.split(':')[0];
@@ -567,7 +578,7 @@ function start_timer () {
                 stop_animation_reverse();
                 timerInput.value = '--:--:--';
                 timer_start = null;
-                const timerAudio = document.getElementById('timerAudio');
+                // const timerAudio = document.getElementById('timerAudio');
                 timerAudio.play();
 
                 setTimeout(function () {

@@ -63,7 +63,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-.set_clock_time button:hover{
+.set_clock_time button:hover {
     background-color: rgba(0, 0, 0, 0.5);
     border-color: #0e5dd4;
 }
@@ -92,9 +92,22 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     color: #b6bbd2;
 }
 
+.set_timer_time #timerAlarm {
+    width: auto;
+    height: 30px;
+    color: #b6bbd2;
+    /* font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: 
+    cursor: pointer; */
+}
+
 .set_timer_time button {
-    /* margin-top: 15px; */
-    width: 100px;
+    width: 50px;
     height: 30px;
     font-size: 15px;
     font-weight: lighter;
@@ -106,6 +119,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
+.set_timer_time button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
 
 #timerAudio {
     display: none;
