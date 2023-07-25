@@ -587,8 +587,7 @@ function start_timer () {
 
 function reset_timer () {
     startBtnTimer.innerText = '开始';
-    if (clock_start !== 'pause')
-        pause();
+    if (clock_start !== 'pause') { pause(); }
     clearInterval(countdownInterval);
     stop_animation_reverse();
     clock.set_time(0, 0, 0);
