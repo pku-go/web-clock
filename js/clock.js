@@ -528,7 +528,6 @@ function start_timer () {
         let targetSecond = timerInput.value.split(':')[2];
 
         if (targetHour === undefined || targetMinute === undefined || targetSecond === undefined) {
-            alert('未设置时间！');
             return;
         }
 
@@ -538,7 +537,6 @@ function start_timer () {
         targetTime = targetHour * 3600 + targetMinute * 60 + targetSecond;
 
         if (targetTime === 0) {
-            alert('设定时间必须大于0');
             return;
         }
 

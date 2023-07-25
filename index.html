@@ -387,27 +387,12 @@
                 <audio id="timerAudio" src="audio/alarm1.mp3"></audio>
                 <div id="alarm_feature">
                     <ul id="alarm_list"></ul>
-                    <button id="add_alarm" onclick="add_alarm()">
-                        添加闹钟
-                    </button>
+                    <button id="add_alarm" onclick="add_alarm()">添加闹钟</button>
                     <div id="alarmSet" class="alarmContainer">
                         <div class="alarmContent">
                             <input type="time" step="1" id="timeSelect">
-                            <label
-                                ><input
-                                    type="radio"
-                                    name="setType"
-                                    value="always"
-                                />总是</label
-                            >
-                            <label
-                                ><input
-                                    type="radio"
-                                    name="setType"
-                                    value="once"
-                                    checked
-                                />仅响一次</label
-                            >
+                            <label><input type="radio" name="setType" value="always"/>总是</label>
+                            <label><input type="radio" name="setType" value="once" checked/>仅响一次</label>
                         </div>
                         <div class="alarmContent">
                             <input type="file" id="audioFile" accept="audio/*"/>
@@ -415,11 +400,7 @@
                             <button id="no" onclick="no()">取消</button>
                         </div>
                     </div>
-                    <audio
-                        id="alarmMusic"
-                        src="audio/alarm3.mp3"
-                        preload="auto"
-                    ></audio>
+                    <audio id="alarmMusic" src="audio/alarm3.mp3" preload="auto"></audio>
                 </div>
             </div>
 
