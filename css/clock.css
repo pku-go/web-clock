@@ -93,8 +93,18 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     display: block;
 }
 
-.set_timer_time button {
+.set_timer_time #startBtnTimer {
     display: block;
+    float: left;
+}
+
+.set_timer_time #resetBtnTimer {
+    display: block;
+    float: left;
+}
+
+#timerAudio {
+    display: none;
 }
 
 .menu {

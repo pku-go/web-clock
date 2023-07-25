@@ -429,59 +429,92 @@ function show_clock_items() {
     clockItems.setAttribute("style", "display: block;");
 }
 
+var timer_start = null;
+let targetTime = 0;
+let countdownInterval = 0;
+
 function start_timer() {
-    let targetHour = timerInput.value.split(":")[0];
-    let targetMinute = timerInput.value.split(":")[1];
-    let targetSecond = timerInput.value.split(":")[2];
+    if (timer_start === null) {
+        let targetHour = timerInput.value.split(":")[0];
+        let targetMinute = timerInput.value.split(":")[1];
+        let targetSecond = timerInput.value.split(":")[2];
 
-    if(targetHour == undefined || targetMinute == undefined || targetSecond == undefined) {
-        alert("未设置时间！");
-        return;
-    }
-
-    targetHour = parseInt(targetHour);
-    targetMinute = parseInt(targetMinute);
-    targetSecond = parseInt(targetSecond);
-    let targetTime = targetHour * 3600 + targetMinute * 60 + targetSecond;
-
-    if (targetTime === 0) {
-        alert("设定时间必须大于0");
-        return;
-    }
-
-    pause();
-    clock.set_time(targetHour, targetMinute, targetSecond);
-    set_new_angle();
-    update_time_text();
-    // disallowDrop();
-
-    start_animation_reverse();
- 
-    let countdownInterval = setInterval(function () {
-    if (targetTime > 1) {
-        targetTime--;
-        let remainingHour = Math.floor(targetTime / 3600);
-        let remainingMinute = Math.floor((targetTime % 3600) / 60);
-        let remainingSecond = targetTime % 60;
-        clock.set_time(remainingHour, remainingMinute, remainingSecond);
-        update_time_text();
-        } else {
-            clearInterval(countdownInterval);
-            clock.set_time(0, 0, 0);
-            set_new_angle();
-            update_time_text();
-            stop_animation_reverse();
-            clock = get_current_clock();
-            clock.update_angle_via_time();
-            set_new_angle();
-            update_time_text();
-            // allowDrop();
-            timerInput.value = "--:--:--";
-            start();
-            alert("时间到！");
+        if(targetHour == undefined || targetMinute == undefined || targetSecond == undefined) {
+            alert("未设置时间！");
             return;
         }
-    }, 1000);
+
+        targetHour = parseInt(targetHour);
+        targetMinute = parseInt(targetMinute);
+        targetSecond = parseInt(targetSecond);
+        targetTime = targetHour * 3600 + targetMinute * 60 + targetSecond;
+
+        if (targetTime === 0) {
+            alert("设定时间必须大于0");
+            return;
+        }
+
+        pause();
+        clock.set_time(targetHour, targetMinute, targetSecond);
+        set_new_angle();
+        update_time_text();
+
+        timer_start = "pause";
+    }
+
+    if (timer_start === "pause") {
+        timer_start = "start";
+        start_animation_reverse();
+        countdownInterval = setInterval(function () {
+            if (targetTime > 1) {
+                targetTime--;
+                let remainingHour = Math.floor(targetTime / 3600);
+                let remainingMinute = Math.floor((targetTime % 3600) / 60);
+                let remainingSecond = targetTime % 60;
+                clock.set_time(remainingHour, remainingMinute, remainingSecond);
+                update_time_text();
+            } else {
+                clearInterval(countdownInterval);
+                clock.set_time(0, 0, 0);
+                clock.update_angle_via_time();
+                set_new_angle();
+                update_time_text();
+                stop_animation_reverse();
+                timerInput.value = "--:--:--";
+                timer_start = null;
+                var timerAudio = document.getElementById("timerAudio");
+                timerAudio.play();
+
+                setTimeout(function () {
+                    timerAudio.pause();
+                }, 5000);
+                // timerAudio.pause();
+                timerAudio.currentTime = 0;
+                return;
+            }
+        }, 1000);
+        return;
+    }
+
+    if (timer_start === "start") {
+        clearInterval(countdownInterval);
+        stop_animation_reverse();
+        timer_start = "pause";
+        clock.update_angle_via_time();
+        set_new_angle();
+        return;
+    }
+
+}
+
+function reset_timer() {
+    clearInterval(countdownInterval);
+    stop_animation_reverse();
+    clock.set_time(0, 0, 0);
+    clock.update_angle_via_time();
+    set_new_angle();
+    update_time_text();
+    timer_start = null;
 }
 
 function clear_timer_items() {

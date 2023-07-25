@@ -287,13 +287,22 @@
                     <input type="time" step="1" id="timerInput" />
                     <button
                         type="button"
-                        id="settingBtnTimer"
+                        id="startBtnTimer"
                         onclick="start_timer()"
                     >
                         <!-- 设置时间 -->
                         Start
                     </button>
+                    <button
+                        type="button"
+                        id="resetBtnTimer"
+                        onclick="reset_timer()"
+                    >
+                        <!-- 重置 -->
+                        Reset
+                    </button>
                 </div>
+                <audio id="timerAudio" src="audio/timer.mp3"></audio>
             </div>
             <div class="menu">
                 <div
