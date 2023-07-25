@@ -288,23 +288,13 @@
                 </div>
                 <div class="set_timer_time" id="timerItems">
                     <input type="time" step="1" id="timerInput" />
-                    <button
-                        type="button"
-                        id="startBtnTimer"
-                        onclick="start_timer()"
-                    >
-                        开始
-                    </button>
-                    <button
-                        type="button"
-                        id="resetBtnTimer"
-                        onclick="reset_timer()"
-                    >
-                        重置
-                    </button>
+                    <button type="button" id="startBtnTimer" onclick="start_timer()">开始</button>
+                    <button type="button" id="resetBtnTimer" onclick="reset_timer()">重置</button>
+                    <div id="timerAlarmLabel">设置铃声：</div>
                     <input type="file" id="timerAlarm" accept="audio/*">
+                    <div id="timeIsUp"></div>
                 </div>
-                <audio id="timerAudio" src="audio/Never Gonna Give You Up.mp3"></audio>
+                <audio id="timerAudio" src="audio/alarm1.mp3"></audio>
                 <div id="alarm_feature">
                     <ul id="alarm_list"></ul>
                     <button id="add_alarm" onclick="add_alarm()">添加闹钟</button>

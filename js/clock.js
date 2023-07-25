@@ -505,6 +505,7 @@ function clear_clock_items () {
 function show_clock_items () {
     clockItems.setAttribute('style', 'display: block;');
 }
+
 // 清除秒表功能相关元素
 function clear_stopwatch_items () {
     stopwatchItems.style.visibility = 'hidden';
@@ -578,11 +579,12 @@ function start_timer () {
                 stop_animation_reverse();
                 timerInput.value = '--:--:--';
                 timer_start = null;
-                // const timerAudio = document.getElementById('timerAudio');
                 timerAudio.play();
+                document.getElementById('timeIsUp').innerText = '时间到！'
 
                 setTimeout(function () {
                     timerAudio.pause();
+                    document.getElementById('timeIsUp').innerText = '';
                 }, 5000);
                 timerAudio.currentTime = 0;
             }
@@ -616,7 +618,7 @@ function clear_timer_items () {
 }
 
 function show_timer_items () {
-    timerItems.setAttribute('style', 'display: block;');
+    timerItems.setAttribute('style', 'display: flex;');
 }
 
 // 主函数
@@ -634,9 +636,9 @@ function main () {
 }
 
 main();
-// 秒表
+
 let isClockRunning = false;
-// 重置
+
 function resetClock () {
     pauseClock();
     clock.set_time(0, 0, 0);
@@ -645,7 +647,9 @@ function resetClock () {
     isClockRunning = false;
     document.getElementById('startStopButton').classList.remove('running');
 }
+
 stopwatchBtn.onclick = toggleStartStop; // 设置时间按钮点击事件
+
 // 在start和stop切换
 function toggleStartStop () {
     if (isClockRunning) {
@@ -657,6 +661,7 @@ function toggleStartStop () {
     document.getElementById('startStopButton').classList.toggle('running');
     isClockRunning = !isClockRunning;
 }
+
 function startClock () {
     start();
 }
@@ -668,7 +673,6 @@ function pauseClock () {
     clock.update_angle_via_time();
     set_new_angle();
 }
-// 结束
 
 function use_alarm() {
     var button = document.getElementById('add_alarm');
