@@ -383,10 +383,10 @@ function choseBtn (btn) {
         show_stopwatch_items();
         break;
     case 'timerBtn':
+        memory_clock_time();
         clear_clock_items();
         clear_stopwatch_items();
         show_timer_items();
-        memory_clock_time();
         break;
     case 'alarmBtn':
         clear_clock_items();
@@ -509,6 +509,7 @@ function clear_stopwatch_items () {
 function show_stopwatch_items () {
     stopwatchItems.style.visibility = 'visible';
 }
+
 let timer_start = null;
 let targetTime = 0;
 let countdownInterval = 0;
@@ -543,6 +544,7 @@ function start_timer () {
     }
 
     if (timer_start === 'pause') {
+        startBtnTimer.innerText = '暂停';
         timer_start = 'start';
         start_animation_reverse();
         countdownInterval = setInterval(function () {
@@ -556,7 +558,6 @@ function start_timer () {
             } else {
                 clearInterval(countdownInterval);
                 clock.set_time(0, 0, 0);
-                clock.update_angle_via_time();
                 set_new_angle();
                 update_time_text();
                 stop_animation_reverse();
@@ -575,6 +576,7 @@ function start_timer () {
     }
 
     if (timer_start === 'start') {
+        startBtnTimer.innerText = '开始';
         clearInterval(countdownInterval);
         stop_animation_reverse();
         timer_start = 'pause';
@@ -584,10 +586,12 @@ function start_timer () {
 }
 
 function reset_timer () {
+    startBtnTimer.innerText = '开始';
+    if (clock_start !== 'pause')
+        pause();
     clearInterval(countdownInterval);
     stop_animation_reverse();
     clock.set_time(0, 0, 0);
-    clock.update_angle_via_time();
     set_new_angle();
     update_time_text();
     timer_start = null;
