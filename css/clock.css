@@ -71,27 +71,27 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-.set_clock_time button:hover{
+.set_clock_time button:hover {
     background-color: rgba(0, 0, 0, 0.5);
     border-color: #0e5dd4;
 }
 
 .set_timer_time {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     position: absolute;
-    justify-content: center;
     align-items: center;
-    width: 175px;
-    height: 70px;
+    width: 370px;
     overflow: visible;
     top: 220px;
-    left: 240px;
+    left: 250px;
 }
 
 .set_timer_time #timerInput {
-    width: 140px;
+    width: 150px;
     padding-left: 8px;
     padding-right: 0px;
-    height: 30px;
     font-size: 20px;
     text-align: center;
     border-radius: 15px;
@@ -101,9 +101,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .set_timer_time button {
-    /* margin-top: 15px; */
-    width: 100px;
-    height: 30px;
+    margin-left: 10px;
+    width: 70px;
     font-size: 15px;
     font-weight: lighter;
     text-align: center;
@@ -114,6 +113,30 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
+.set_timer_time button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
+
+.set_timer_time #timerAlarmLabel {
+    margin-top: 5px;
+    width: 80px;
+    color: #b6bbd2;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.set_timer_time #timerAlarmInput {
+    margin-top: 5px;
+    color: #b6bbd2;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.set_timer_time #timeIsUp {
+    font-size: 36px;
+    color: #b6bbd2;
+}
 
 #timerAudio {
     display: none;
