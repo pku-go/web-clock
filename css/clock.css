@@ -434,6 +434,14 @@ text {
     overflow: scroll;
 }
 
+#alarm_list::-webkit-scrollbar {
+    display: none;
+}
+
+#alarm_list {
+    scrollbar-width: none;
+}
+
 #alarm_list li {
     color: white;
     list-style-position: inside;
