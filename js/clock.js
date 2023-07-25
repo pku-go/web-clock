@@ -37,7 +37,8 @@ const btn_hover_list = [
     alarmBtnBack
 ];
 
-const settingBtnTimer = document.getElementById('settingBtnTimer');
+const startBtnTimer = document.getElementById('startBtnTimer');
+const resetBtnTimer = document.getElementById('resetBtnTimer');
 const timerInput = document.getElementById('timerInput');
 const timerItems = document.getElementById('timerItems');
 
@@ -510,7 +511,7 @@ function start_timer () {
         let targetMinute = timerInput.value.split(':')[1];
         let targetSecond = timerInput.value.split(':')[2];
 
-        if (targetHour == undefined || targetMinute == undefined || targetSecond == undefined) {
+        if (targetHour === undefined || targetMinute === undefined || targetSecond === undefined) {
             alert('未设置时间！');
             return;
         }
@@ -596,6 +597,9 @@ function show_timer_items () {
 function main () {
     choseBtn(clockBtn); // 默认选中时钟按钮
     settingBtn.onclick = set_time_via_input; // 设置时间按钮点击事件
+    startBtnTimer.onclick = start_timer;
+    resetBtnTimer.onclick = reset_timer;
+    
     // 初始化指针角度
     clock.update_angle_via_time();
     set_new_angle();
