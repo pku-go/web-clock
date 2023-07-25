@@ -68,6 +68,49 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border-color: #0e5dd4;
 }
 
+.set_timer_time {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 175px;
+    height: 70px;
+    overflow: visible;
+    top: 220px;
+    left: 240px;
+}
+
+.set_timer_time #timerInput {
+    width: 140px;
+    padding-left: 8px;
+    padding-right: 0px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+}
+
+.set_timer_time button {
+    /* margin-top: 15px; */
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+
+#timerAudio {
+    display: none;
+}
+
 .menu {
     flex: 2;
     height: auto;
@@ -231,6 +274,27 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     -ms-animation: rotate 43200s infinite linear;
 }
 
+.playSecondReverse {
+    animation: rotateReverse 60s infinite linear;
+    -moz-animation: rotateReverse 60s infinite linear;
+    -webkit-animation: rotateReverse 60s infinite linear;
+    -ms-animation: rotateReverse 60s infinite linear;
+}
+
+.playMinuteReverse {
+    animation: rotateReverse 3600s infinite linear;
+    -moz-animation: rotateReverse 3600s infinite linear;
+    -webkit-animation: rotateReverse 3600s infinite linear;
+    -ms-animation: rotateReverse 3600s infinite linear;
+}
+
+.playHourReverse {
+    animation: rotateReverse 43200s infinite linear;
+    -moz-animation: rotateReverse 43200s infinite linear;
+    -webkit-animation: rotateReverse 43200s infinite linear;
+    -ms-animation: rotateReverse 43200s infinite linear;
+}
+
 .selectban {
     user-select: none;
     -moz-user-select: none;
@@ -250,6 +314,67 @@ text {
     100% {
         transform: rotate(360deg);
     }
+}
+@keyframes rotateReverse {
+    50% {
+        transform: rotate(-180deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+.control-buttons {
+    position: absolute;
+    top: 120px;
+    left: 300px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.control-buttonreset{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #171917; /* Green color, you can change it as per your preference */
+    background-image: url('../images/reset.png'); /* Start button image */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: none; /* Remove the original circular button border */
+}
+.control-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #171917; /* Green color, you can change it as per your preference */
+    background-image: url('../images/start.png'); /* Start button image */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: none; /* Remove the original circular button border */
+}
+
+/* Style for the "Stop" button when clock is running */
+.control-button.running {
+    background-image: url('../images/stop.png'); /* Stop button image */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .hidden {
