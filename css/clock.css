@@ -251,3 +251,26 @@ text {
         transform: rotate(360deg);
     }
 }
+
+#alarm_feature {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#alarm_list li {
+    color: white;
+    list-style-position: inside;
+    text-align: left;
+}
+
+#add_alarm {
+    position: relative;
+    width: 100px;
+}
+
+#alarmSet {
+    color: white;
+}

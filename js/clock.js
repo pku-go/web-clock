@@ -436,3 +436,69 @@ function main() {
 }
 
 main();
+
+function use_alarm() {
+    var div = document.getElementById('alarm_feature');
+    div.style.display = "block";
+}
+
+function add_alarm() {
+    var alarmSet = document.getElementById('alarmSet');
+    alarmSet.classList.toggle('hidden');
+}
+
+const hourSelect = document.getElementById('hourSelect');
+for(let i = 0; i <= 23; i++){
+    const option = document.createElement('option');
+    if(i < 10) i = '0' + i;
+    option.textContent = i;
+    option.value = i;
+    hourSelect.appendChild(option);
+}
+const minuteSelect = document.getElementById('minuteSelect');
+for(let i = 0; i <= 59; i++){
+    const option = document.createElement('option');
+    if(i < 10) i = '0' + i;
+    option.textContent = i;
+    option.value = i;
+    minuteSelect.appendChild(option);
+}
+const secondSelect = document.getElementById('secondSelect');
+for(let i = 0; i <= 59; i++){
+    const option = document.createElement('option');
+    if(i < 10) i = '0' + i;
+    option.textContent = i;
+    option.value = i;
+    secondSelect.appendChild(option);
+}
+
+function sure(){
+    var alarmSet = document.getElementById('alarmSet');
+    alarmSet.classList.add('hidden');
+    var alarm_list = document.getElementById('alarm_list');
+    const alarmHour = document.getElementById('hourSelect').value;
+    const alarmMinute = document.getElementById('minuteSelect').value;
+    const alarmSecond = document.getElementById('secondSelect').value;
+    const Types = document.querySelectorAll('input[name="setType"]');
+    let selectType = null;
+    Types.forEach(Type => {
+        if(Type.checked){
+            selectType = Type.value;
+        }
+    });
+    var alarmTime = alarmHour + ':' + alarmMinute + ':' + alarmSecond + ' ' + selectType;
+    var newAlarm = document.createElement('li');
+    var button = document.createElement('button');
+    button.textContent = '删除';
+    button.onclick = function() {
+        alarm_list.removeChild(newAlarm);
+    }
+    newAlarm.appendChild(document.createTextNode(alarmTime));
+    newAlarm.appendChild(button);
+    alarm_list.appendChild(newAlarm);
+}
+
+function no(){
+    var alarmSet = document.getElementById('alarmSet');
+    alarmSet.classList.add('hidden');
+}

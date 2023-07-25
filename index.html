@@ -317,6 +317,21 @@
                     <p>闹钟</p>
                 </div>
             </div>
+            <button id="alarm" onclick="use_alarm()">alarm</button>
+        </div>
+        <div id="alarm_feature">
+            <ul id="alarm_list"></ul>
+            <button id="add_alarm" onclick="add_alarm()">+</button>
+            <div id="alarmSet" class="hidden">
+                <label for="selectBox">选择时间：</label>
+                <select id="hourSelect"></select>
+                <select id="minuteSelect"></select>
+                <select id="secondSelect"></select>
+                <label><input type="radio" name="setType" value="always">总是</label>
+                <label><input type="radio" name="setType" value="once">仅响一次</label>
+                <button id="sure" onclick="sure()">确认</button>
+                <button id="no" onclick="no()">取消</button>
+            </div>
         </div>
     </body>
 </html>
