@@ -376,17 +376,17 @@ function choseBtn (btn) {
         clear_stopwatch_items();
         break;
     case 'secondBtn':
+        memory_clock_time();
         resetClock();
         clear_clock_items();
         clear_timer_items();
         show_stopwatch_items();
-        memory_clock_time();
         break;
     case 'timerBtn':
+        memory_clock_time();
         clear_clock_items();
         clear_stopwatch_items();
         show_timer_items();
-        memory_clock_time();
         break;
     case 'alarmBtn':
         clear_clock_items();
