@@ -10,11 +10,11 @@ body {
     display: flex;
 }
 
-#minuteLine{
+#minuteLine {
     stroke: #c48a8a;
 }
 
-#hourLine{
+#hourLine {
     stroke: #c48a8a;
 }
 
@@ -112,12 +112,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     background-color: rgba(0, 0, 0, 0.5);
     border-color: #0e5dd4;
 }
-
-/* .set_timer_time #timeIsUp {
-    margin-top: 5px;
-    font-size: 25px;
-    color: #b6bbd2;
-} */
 
 #timerAudio {
     display: none;
@@ -374,8 +368,8 @@ text {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #171917; /* Green color, you can change it as per your preference */
-    background-image: url('../images/reset.png'); /* Start button image */
+    background-color: #171917;
+    background-image: url('../images/reset.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -386,7 +380,7 @@ text {
     margin-bottom: 10px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    border: none; /* Remove the original circular button border */
+    border: none;
 }
 
 .control-buttonreset:hover{
@@ -397,8 +391,8 @@ text {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #171917; /* Green color, you can change it as per your preference */
-    background-image: url('../images/start.png'); /* Start button image */
+    background-color: #171917;
+    background-image: url('../images/start.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -409,16 +403,15 @@ text {
     margin-bottom: 10px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    border: none; /* Remove the original circular button border */
+    border: none;
 }
 
 .control-button:hover{
     box-shadow: 0 0 20px #0df8e1;
 }
 
-/* Style for the "Stop" button when clock is running */
 .control-button.running {
-    background-image: url('../images/stop.png'); /* Stop button image */
+    background-image: url('../images/stop.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;

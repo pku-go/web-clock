@@ -179,8 +179,8 @@ function start_animation () {
     secondHand.classList.add('playSecond');
     liveClock.classList.add('playSecond');
 }
+
 function stop_animation_reverse () {
-    // 从类hourHand中移除类playHourReverse，其余同理
     hourHand.classList.remove('playHourReverse');
     minuteHand.classList.remove('playMinuteReverse');
     secondHand.classList.remove('playSecondReverse');
@@ -188,12 +188,12 @@ function stop_animation_reverse () {
 }
 
 function start_animation_reverse () {
-    // 在类hourHand中加入类playHourReverse，其余同理
     hourHand.classList.add('playHourReverse');
     minuteHand.classList.add('playMinuteReverse');
     secondHand.classList.add('playSecondReverse');
     liveClock.classList.add('playSecondReverse');
 }
+
 // 处理鼠标拖动秒针的事件
 function second_mousemove (event) {
     let angle =
@@ -568,6 +568,7 @@ function pauseClock () {
 function clear_stopwatch_items () {
     stopwatchItems.style.visibility = 'hidden';
 }
+
 // 显示秒表功能相关元素
 function show_stopwatch_items () {
     stopwatchItems.style.visibility = 'visible';
