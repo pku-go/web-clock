@@ -28,116 +28,6 @@ body {
     width: 100%;
 }
 
-.set_clock_time {
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 70px;
-    overflow: visible;
-    top: 245px;
-    left: 240px;
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator {
-    filter: invert(1) hue-rotate(180deg);
-}
-
-.set_clock_time #clockInput {
-    width: 140px;
-    padding-left: 8px;
-    padding-right: 0px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
-    border-radius: 15px;
-    border: 1px solid #fff;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #b6bbd2;
-    display: none;
-}
-
-.set_clock_time button {
-    margin-top: 35px;
-    width: 100px;
-    height: 30px;
-    font-size: 15px;
-    font-weight: lighter;
-    text-align: center;
-    border-radius: 15px;
-    border: 1px solid #fff;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #b6bbd2;
-    cursor: pointer;
-}
-
-.set_clock_time button:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-color: #0e5dd4;
-}
-
-.set_timer_time {
-    position: absolute;
-    align-items: center;
-    overflow: visible;
-    top: 220px;
-    left: 250px;
-}
-
-.set_timer_time #timerInput {
-    width: 130px;
-    padding-left: 8px;
-    padding-right: 0px;
-    font-size: 20px;
-    text-align: center;
-    border-radius: 15px;
-    border: 1px solid #fff;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #b6bbd2;
-}
-
-.set_timer_time button {
-    margin-top: 5px;
-    font-size: 15px;
-    font-weight: lighter;
-    text-align: center;
-    border-radius: 15px;
-    border: 1px solid #fff;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #b6bbd2;
-    cursor: pointer;
-}
-
-.set_timer_time button:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-color: #0e5dd4;
-}
-
-#timerAudio {
-    display: none;
-}
-
-#timerDialog {
-    background-color: rgba(9, 166, 150, 0.2);
-    background: url('../images/background.png');
-    border-radius: 15px;
-    opacity: 1;
-    color: #b6bbd2;
-}
-
-#timerAudioStopBtn {
-    width: 80px;
-    margin-top: 15px;
-    font-size: 15px;
-    font-weight: lighter;
-    text-align: center;
-    border-radius: 15px;
-    border: 1px solid #fff;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #b6bbd2;
-    cursor: pointer;
-}
-
 .menu {
     flex: 2;
     height: auto;
@@ -354,6 +244,58 @@ text {
     }
 }
 
+/* 时钟 */
+
+.set_clock_time {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 70px;
+    overflow: visible;
+    top: 245px;
+    left: 240px;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.set_clock_time #clockInput {
+    width: 140px;
+    padding-left: 8px;
+    padding-right: 0px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    display: none;
+}
+
+.set_clock_time button {
+    margin-top: 35px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+.set_clock_time button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
+
+/* 秒表 */
+
 .control-buttons {
     position: absolute;
     top: 120px;
@@ -364,7 +306,7 @@ text {
     align-items: center;
 }
 
-.control-buttonreset{
+.control-buttonreset {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -383,7 +325,7 @@ text {
     border: none;
 }
 
-.control-buttonreset:hover{
+.control-buttonreset:hover {
     box-shadow: 0 0 20px #0df8e1;
 }
 
@@ -406,7 +348,7 @@ text {
     border: none;
 }
 
-.control-button:hover{
+.control-button:hover {
     box-shadow: 0 0 20px #0df8e1;
 }
 
@@ -416,6 +358,77 @@ text {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+/* 计时器 */
+
+.set_timer_time {
+    position: absolute;
+    align-items: center;
+    overflow: visible;
+    top: 220px;
+    left: 250px;
+}
+
+.set_timer_time #timerInput {
+    width: 130px;
+    padding-left: 8px;
+    padding-right: 0px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+}
+
+.set_timer_time button {
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+.set_timer_time button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
+
+#timerAudio {
+    display: none;
+}
+
+#timerDialog {
+    background-color: rgba(9, 166, 150, 0.2);
+    background: url('../images/background.png');
+    border-radius: 15px;
+    opacity: 1;
+    color: #b6bbd2;
+}
+
+#timerAudioStopBtn {
+    width: 80px;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+#timerAudioStopBtn:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
+
+/* 闹钟 */
 
 #alarm_list {
     position: absolute;
