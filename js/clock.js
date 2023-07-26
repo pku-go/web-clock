@@ -42,6 +42,10 @@ const resetBtnTimer = document.getElementById('resetBtnTimer');
 const timerInput = document.getElementById('timerInput');
 const timerItems = document.getElementById('timerItems');
 
+const alarm_list = document.getElementById('alarm_list');
+const alarmSet = document.getElementById('alarmSet');
+const alarmMusic = document.getElementById('alarmMusic');
+
 // 时钟对象构造函数
 class Clock {
     constructor (hour, minute, second) {
@@ -370,35 +374,35 @@ function choseBtn (btn) {
     }
     switch (btn.id) {
         case "clockBtn":
-            back_to_memory_time();
-            show_clock_items();
-            clear_timer_items();
-            clear_stopwatch_items();
-            clearAlarm();
-            use_alarm_special();
-            break;
+        back_to_memory_time();
+        show_clock_items();
+        clear_timer_items();
+        clear_stopwatch_items();
+        clearAlarm();
+        use_alarm_special();
+        break;
         case "secondBtn":
-            memory_clock_time();
-            resetClock();
-            clear_clock_items();
-            clear_timer_items();
-            show_stopwatch_items();
-            clearAlarm_special();
-            break;
+        memory_clock_time();
+        resetClock();
+        clear_clock_items();
+        clear_timer_items();
+        show_stopwatch_items();
+        clearAlarm_special();
+        break;
         case "timerBtn":
-            memory_clock_time();
-            clear_clock_items();
-            clear_stopwatch_items();
-            show_timer_items();
-            clearAlarm_special();
-            break;
+        memory_clock_time();
+        clear_clock_items();
+        clear_stopwatch_items();
+        show_timer_items();
+        clearAlarm_special();
+        break;
         case "alarmBtn":
-            back_to_memory_time();
-            clear_clock_items();
-            clear_stopwatch_items();
-            clear_timer_items();
-            use_alarm();
-            break;
+        back_to_memory_time();
+        clear_clock_items();
+        clear_stopwatch_items();
+        clear_timer_items();
+        use_alarm();
+        break;
     }
 }
 
@@ -664,7 +668,7 @@ function pauseClock () {
     set_new_angle();
 }
 
-var alarmMusic = document.getElementById('alarmMusic');
+
 var Interval = setInterval(detectList, 100);
 
 document.getElementById('audioFile').addEventListener('change', function(){
@@ -678,7 +682,7 @@ document.getElementById('audioFile').addEventListener('change', function(){
 function use_alarm() {
     var button = document.getElementById('add_alarm');
     button.style.display = "block";
-    var alarm_list = document.getElementById('alarm_list');
+    // var alarm_list = document.getElementById('alarm_list');
     var liCount = alarm_list.getElementsByTagName('li').length;
     if(liCount !== 0) alarm_list.setAttribute("style", "display: flex");
     if (Interval === null) {
@@ -687,8 +691,7 @@ function use_alarm() {
 }
 
 function use_alarm_special() {
-    var alarm_list = document.getElementById('alarm_list');
-    var alarm_list = document.getElementById('alarm_list');
+    // var alarm_list = document.getElementById('alarm_list');
     var liCount = alarm_list.getElementsByTagName('li').length;
     if(liCount !== 0) alarm_list.setAttribute("style", "display: flex");
     if (Interval === null) {
@@ -697,8 +700,8 @@ function use_alarm_special() {
 }
 
 function add_alarm() {
-    var alarmSet = document.getElementById('alarmSet');
-    alarmSet.setAttribute("style", "display: flex")
+    // var alarmSet = document.getElementById('alarmSet');
+    alarmSet.setAttribute("style", "display: flex");
     if (Interval === null) {
         Interval = setInterval(detectList, 100);
     }
@@ -715,9 +718,9 @@ function always_alarmRing(alarmTime) {
 }
 
 function sure(){
-    var alarmSet = document.getElementById('alarmSet');
+    // var alarmSet = document.getElementById('alarmSet');
     alarmSet.setAttribute("style", "display: none");
-    var alarm_list = document.getElementById('alarm_list');
+    // var alarm_list = document.getElementById('alarm_list');
     var timeSelect = document.getElementById('timeSelect');
     var alarmTime = timeSelect.value;
     if(timeSelect.value === '') alarmTime = "00:00:00";
@@ -759,19 +762,19 @@ function sure(){
 }
 
 function no(){
-    var alarmSet = document.getElementById('alarmSet');
+    // var alarmSet = document.getElementById('alarmSet');
     alarmSet.setAttribute("style", "display: none");
 }
 
 function clearAlarm() {
     var div = document.getElementById('add_alarm');
     div.style.display = "none"; 
-    var alarmSet = document.getElementById('alarmSet');
+    // var alarmSet = document.getElementById('alarmSet');
     alarmSet.setAttribute("style", "display: none");
 }
 
 function detectList() {
-    var alarm_list = document.getElementById('alarm_list');
+    // var alarm_list = document.getElementById('alarm_list');
     var liCount = alarm_list.getElementsByTagName('li').length;
     if(liCount === 0) {
         alarm_list.setAttribute("style", "display: none");
@@ -786,8 +789,8 @@ function clearAlarm_special() {
     Interval = null;
     var div = document.getElementById('add_alarm');
     div.style.display = "none";
-    var alarm_list = document.getElementById('alarm_list');
+    // var alarm_list = document.getElementById('alarm_list');
     alarm_list.setAttribute("style", "display: none");
-    var alarmSet = document.getElementById('alarmSet');
+    // var alarmSet = document.getElementById('alarmSet');
     alarmSet.setAttribute("style", "display: none");
 }
