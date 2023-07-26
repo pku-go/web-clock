@@ -26,6 +26,7 @@ const alarmBtnBack = document.querySelector('#alarmBtn .bar');
 const settingBtn = document.getElementById('settingBtn'); // 设置时间按钮
 const clockInput = document.getElementById('clockInput'); // 时间输入框
 const clockItems = document.getElementById('clockItems'); // 时钟相关元素容器
+
 // 停表相关元素
 const stopwatchItems = document.getElementById('stopwatchItems');
 const stopwatchBtn = document.getElementById('startStopButton');
@@ -41,6 +42,7 @@ const startBtnTimer = document.getElementById('startBtnTimer');
 const resetBtnTimer = document.getElementById('resetBtnTimer');
 const timerInput = document.getElementById('timerInput');
 const timerItems = document.getElementById('timerItems');
+const timerAudio = document.getElementById('timerAudio');
 
 const alarm_list = document.getElementById('alarm_list');
 const alarmSet = document.getElementById('alarmSet');
@@ -373,7 +375,7 @@ function choseBtn (btn) {
         }
     }
     switch (btn.id) {
-        case "clockBtn":
+    case 'clockBtn':
         back_to_memory_time();
         show_clock_items();
         clear_timer_items();
@@ -381,7 +383,7 @@ function choseBtn (btn) {
         clearAlarm();
         use_alarm_special();
         break;
-        case "secondBtn":
+    case 'secondBtn':
         memory_clock_time();
         resetClock();
         clear_clock_items();
@@ -389,14 +391,14 @@ function choseBtn (btn) {
         show_stopwatch_items();
         clearAlarm_special();
         break;
-        case "timerBtn":
+    case 'timerBtn':
         memory_clock_time();
         clear_clock_items();
         clear_stopwatch_items();
         show_timer_items();
         clearAlarm_special();
         break;
-        case "alarmBtn":
+    case 'alarmBtn':
         back_to_memory_time();
         clear_clock_items();
         clear_stopwatch_items();
@@ -512,14 +514,7 @@ function show_clock_items () {
     clockItems.setAttribute('style', 'display: block;');
 }
 
-// 清除秒表功能相关元素
-function clear_stopwatch_items () {
-    stopwatchItems.style.visibility = 'hidden';
-}
-// 显示秒表功能相关元素
-function show_stopwatch_items () {
-    stopwatchItems.style.visibility = 'visible';
-}
+// 计时器
 
 let timer_start = null;
 let targetTime = 0;
@@ -572,9 +567,8 @@ function start_timer () {
                 stop_animation_reverse();
                 timerInput.value = '--:--:--';
                 timer_start = null;
-                let timerAudio = document.getElementById('timerAudio');
                 timerAudio.play();
-                document.getElementById('timeIsUp').innerText = '时间到！'
+                document.getElementById('timeIsUp').innerText = '时间到！';
 
                 setTimeout(function () {
                     timerAudio.pause();
@@ -615,21 +609,7 @@ function show_timer_items () {
     timerItems.setAttribute('style', 'display: block;');
 }
 
-// 主函数
-function main () {
-    choseBtn(clockBtn); // 默认选中时钟按钮
-    settingBtn.onclick = set_time_via_input; // 设置时间按钮点击事件
-    startBtnTimer.onclick = start_timer;
-    resetBtnTimer.onclick = reset_timer;
-    // 初始化指针角度
-    clock.update_angle_via_time();
-    set_new_angle();
-    update_time_text();
-
-    start(); // 启动时钟
-}
-
-main();
+// 秒表
 
 let isClockRunning = false;
 
@@ -651,7 +631,6 @@ function toggleStartStop () {
     } else {
         startClock();
     }
-    //
     document.getElementById('startStopButton').classList.toggle('running');
     isClockRunning = !isClockRunning;
 }
@@ -668,129 +647,145 @@ function pauseClock () {
     set_new_angle();
 }
 
+// 清除秒表功能相关元素
+function clear_stopwatch_items () {
+    stopwatchItems.style.visibility = 'hidden';
+}
+// 显示秒表功能相关元素
+function show_stopwatch_items () {
+    stopwatchItems.style.visibility = 'visible';
+}
 
-var Interval = setInterval(detectList, 100);
+// 闹钟
 
-document.getElementById('audioFile').addEventListener('change', function(){
+let Interval = setInterval(detectList, 100);
+
+document.getElementById('audioFile').addEventListener('change', function () {
     const file = this.files[0];
-    if(file) {
+    if (file) {
         const selectedMusic = URL.createObjectURL(file);
         alarmMusic.src = selectedMusic;
     }
-})
+});
 
-function use_alarm() {
-    var button = document.getElementById('add_alarm');
-    button.style.display = "block";
-    // var alarm_list = document.getElementById('alarm_list');
+function use_alarm () {
+    let button = document.getElementById('add_alarm');
+    button.style.display = 'block';
     var liCount = alarm_list.getElementsByTagName('li').length;
-    if(liCount !== 0) alarm_list.setAttribute("style", "display: flex");
+    if(liCount !== 0) alarm_list.setAttribute('style', 'display: flex');
     if (Interval === null) {
         Interval = setInterval(detectList, 100);
     }
 }
 
-function use_alarm_special() {
-    // var alarm_list = document.getElementById('alarm_list');
+function use_alarm_special () {
     var liCount = alarm_list.getElementsByTagName('li').length;
-    if(liCount !== 0) alarm_list.setAttribute("style", "display: flex");
+    if (liCount !== 0) alarm_list.setAttribute('style', 'display: flex');
     if (Interval === null) {
         Interval = setInterval(detectList, 100);
     }
 }
 
-function add_alarm() {
-    // var alarmSet = document.getElementById('alarmSet');
-    alarmSet.setAttribute("style", "display: flex");
+function add_alarm () {
+    alarmSet.setAttribute('style', 'display: flex');
     if (Interval === null) {
         Interval = setInterval(detectList, 100);
     }
 }
 
-function always_alarmRing(alarmTime) {
-    var hour = document.getElementById('hour');
-    var minute = document.getElementById('minute');
-    var second = document.getElementById('second');
-    var nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
+function always_alarmRing (alarmTime) {
+    let hour = document.getElementById('hour');
+    let minute = document.getElementById('minute');
+    let second = document.getElementById('second');
+    let nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
     if(alarmTime === nowTime){
         alarmMusic.play();
     }
 }
 
-function sure(){
-    // var alarmSet = document.getElementById('alarmSet');
-    alarmSet.setAttribute("style", "display: none");
-    // var alarm_list = document.getElementById('alarm_list');
-    var timeSelect = document.getElementById('timeSelect');
-    var alarmTime = timeSelect.value;
-    if(timeSelect.value === '') alarmTime = "00:00:00";
+function sure () {
+    alarmSet.setAttribute('style', 'display: none');
+    let timeSelect = document.getElementById('timeSelect');
+    let alarmTime = timeSelect.value;
+    if(timeSelect.value === '') alarmTime = '00:00:00';
     const Types = document.querySelectorAll('input[name="setType"]');
     let selectType = null;
     Types.forEach(Type => {
-        if(Type.checked){
+        if (Type.checked) {
             selectType = Type.value;
         }
     });
-    var alarmText = alarmTime + ' ' + selectType;
-    var newAlarm = document.createElement('li');
-    var button = document.createElement('button');
+    let alarmText = alarmTime + ' ' + selectType;
+    let newAlarm = document.createElement('li');
+    let button = document.createElement('button');
     button.textContent = '删除';
     button.classList.add('deleteBtn');
-    var interValid = null;
-    if(selectType === 'once'){
-            interValid = setInterval(function once_alarmRing(alarmTime) {
-            var hour = document.getElementById('hour');
-            var minute = document.getElementById('minute');
-            var second = document.getElementById('second');
-            var nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
-            if(alarmTime === nowTime){
+    let interValid = null;
+    if (selectType === 'once') {
+        interValid = setInterval( function once_alarmRing(alarmTime) {
+            let hour = document.getElementById('hour');
+            let minute = document.getElementById('minute');
+            let second = document.getElementById('second');
+            let nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
+            if (alarmTime === nowTime) {
                 clearInterval(interValid);
                 alarmMusic.play();
             }
         }, 1000, alarmTime);
     }
-    else{
+    else {
         interValid = setInterval(always_alarmRing, 1000, alarmTime);
     }
-    button.onclick = function() {
+    button.onclick = function () {
         alarm_list.removeChild(newAlarm);
         clearInterval(interValid);
-    }
+    };
     newAlarm.appendChild(document.createTextNode(alarmText));
     newAlarm.appendChild(button);
     alarm_list.appendChild(newAlarm);
 }
 
-function no(){
-    // var alarmSet = document.getElementById('alarmSet');
-    alarmSet.setAttribute("style", "display: none");
+function no () {
+    alarmSet.setAttribute('style', 'display: none');
 }
 
-function clearAlarm() {
-    var div = document.getElementById('add_alarm');
-    div.style.display = "none"; 
-    // var alarmSet = document.getElementById('alarmSet');
-    alarmSet.setAttribute("style", "display: none");
+function clearAlarm () {
+    let div = document.getElementById('add_alarm');
+    div.style.display = 'none';
+    alarmSet.setAttribute('style', 'display: none');
 }
 
-function detectList() {
-    // var alarm_list = document.getElementById('alarm_list');
-    var liCount = alarm_list.getElementsByTagName('li').length;
-    if(liCount === 0) {
-        alarm_list.setAttribute("style", "display: none");
+function detectList () {
+    let liCount = alarm_list.getElementsByTagName('li').length;
+    if (liCount === 0) {
+        alarm_list.setAttribute('style', 'display: none');
     }
     else {
-        alarm_list.setAttribute('style', "display: flex");
+        alarm_list.setAttribute('style', 'display: flex');
     }
 }
 
-function clearAlarm_special() {
+function clearAlarm_special () {
     clearInterval(Interval);
     Interval = null;
-    var div = document.getElementById('add_alarm');
-    div.style.display = "none";
-    // var alarm_list = document.getElementById('alarm_list');
-    alarm_list.setAttribute("style", "display: none");
-    // var alarmSet = document.getElementById('alarmSet');
-    alarmSet.setAttribute("style", "display: none");
+    let div = document.getElementById('add_alarm');
+    div.style.display = 'none';
+    alarm_list.setAttribute('style', 'display: none');
+    alarmSet.setAttribute('style', 'display: none');
 }
+
+// 主函数
+function main () {
+    choseBtn(clockBtn); // 默认选中时钟按钮
+    settingBtn.onclick = set_time_via_input; // 设置时间按钮点击事件
+    startBtnTimer.onclick = start_timer;
+    resetBtnTimer.onclick = reset_timer;
+    // 初始化指针角度
+    clock.update_angle_via_time();
+    set_new_angle();
+    update_time_text();
+
+    start(); // 启动时钟
+}
+
+main();
