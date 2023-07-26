@@ -470,10 +470,13 @@ text {
     display: none;
     flex-wrap: wrap;
     flex-direction: column;
+    gap: 10px;
 }
 
-.content {
+.alarmContent {
+    display: flex;
     flex-grow: 1;
+    flex-direction: row;
 }
 
 #alarm_feature button:hover {
@@ -495,7 +498,7 @@ text {
 }
 
 #alarmSet button {
-    margin-top: 35px;
+    margin-top: 0px;
     font-size: 15px;
     font-weight: lighter;
     text-align: center;
@@ -504,6 +507,10 @@ text {
     background-color: rgba(0, 0, 0, 0.3);
     color: #b6bbd2;
     cursor: pointer;
+}
+
+#no {
+    margin-left: 10px;
 }
 
 .deleteBtn {
@@ -516,4 +523,53 @@ text {
     background-color: rgba(0, 0, 0, 0.3);
     color: #b6bbd2;
     cursor: pointer;
+}
+
+#alarmStop {
+    background-color: rgba(9, 166, 150, 0.2);
+    background: url('../images/background.png');
+    border-radius: 15px;
+    opacity: 1;
+    color: #b6bbd2;
+}
+
+#stopRing {
+    width: 80px;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+#audioFile {
+    display: none;
+}
+
+#fileLabel {
+    display: inline-block;
+    width: 100px;
+    height: 27px;
+    /* margin-top: 15px; */
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
+}
+
+#fileLabel:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: #0e5dd4;
+}
+
+#filePath {
+    width: 150px;
 }

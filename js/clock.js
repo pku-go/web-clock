@@ -47,6 +47,10 @@ const timerAudio = document.getElementById('timerAudio');
 const alarm_list = document.getElementById('alarm_list');
 const alarmSet = document.getElementById('alarmSet');
 const alarmMusic = document.getElementById('alarmMusic');
+const alarmStop = document.getElementById('alarmStop');
+const stopRing = document.getElementById('stopRing');
+const filePath = document.getElementById('filePath');
+const audioFile = document.getElementById('audioFile');
 
 // 时钟对象构造函数
 class Clock {
@@ -700,6 +704,7 @@ function always_alarmRing (alarmTime) {
     let nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
     if(alarmTime === nowTime){
         alarmMusic.play();
+        alarmStop.showModal();
     }
 }
 
@@ -730,6 +735,8 @@ function sure () {
             if (alarmTime === nowTime) {
                 clearInterval(interValid);
                 alarmMusic.play();
+                alarm_list.removeChild(newAlarm);
+                alarmStop.showModal();
             }
         }, 1000, alarmTime);
     }
@@ -773,6 +780,19 @@ function clearAlarm_special () {
     alarm_list.setAttribute('style', 'display: none');
     alarmSet.setAttribute('style', 'display: none');
 }
+
+stopRing.addEventListener('click', function(){
+    alarmStop.close();
+    alarmMusic.pause();
+    alarmMusic.currentTime = 0;
+})
+
+audioFile.addEventListener('change', function(){
+    const file = this.files[0];
+    if (file) {
+        filePath.textContent = `${file.name}`;
+    }
+})
 
 // 主函数
 function main () {

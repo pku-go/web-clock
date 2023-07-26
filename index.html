@@ -395,12 +395,20 @@
                             <label><input type="radio" name="setType" value="once" checked/>仅响一次</label>
                         </div>
                         <div class="alarmContent">
+                            <label id="fileLabel" for="audioFile">选择文件</label>
+                            <div id="filePath">请选择文件</div>
                             <input type="file" id="audioFile" accept="audio/*"/>
+                        </div>
+                        <div class="alarmContent">
                             <button id="sure" onclick="sure()">确认</button>
                             <button id="no" onclick="no()">取消</button>
                         </div>
                     </div>
                     <audio id="alarmMusic" src="audio/alarm3.mp3" preload="auto"></audio>
+                    <dialog id="alarmStop">
+                        <h2>Alarm is ringing</h2>
+                        <button id="stopRing">Stop</button>
+                    </dialog>
                 </div>
             </div>
 
