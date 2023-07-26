@@ -12,7 +12,8 @@ const label = document.querySelector('text'); // 小时状态（AM/PM）标签
 let temp_clock = null; // 临时时钟对象
 let leave_second = 0; // 离开时钟的秒数
 let count_leave_second = null; // 离开时钟的秒数计数器
-// 获取按钮元素
+
+// 菜单栏按钮
 const clockBtn = document.getElementById('clockBtn');
 const secondBtn = document.getElementById('secondBtn');
 const timerBtn = document.getElementById('timerBtn');
@@ -21,15 +22,6 @@ const clockBtnBack = document.querySelector('#clockBtn .bar');
 const secondBtnBack = document.querySelector('#secondBtn .bar');
 const timerBtnBack = document.querySelector('#timerBtn .bar');
 const alarmBtnBack = document.querySelector('#alarmBtn .bar');
-
-// 时钟相关按钮及输入
-const settingBtn = document.getElementById('settingBtn'); // 设置时间按钮
-const clockInput = document.getElementById('clockInput'); // 时间输入框
-const clockItems = document.getElementById('clockItems'); // 时钟相关元素容器
-
-// 停表相关元素
-const stopwatchItems = document.getElementById('stopwatchItems');
-const stopwatchBtn = document.getElementById('startStopButton');
 const btn_list = [clockBtn, secondBtn, timerBtn, alarmBtn];
 const btn_hover_list = [
     clockBtnBack,
@@ -38,14 +30,32 @@ const btn_hover_list = [
     alarmBtnBack
 ];
 
-const startBtnTimer = document.getElementById('startBtnTimer');
-const resetBtnTimer = document.getElementById('resetBtnTimer');
+// 时钟相关元素
+const settingBtn = document.getElementById('settingBtn'); // 设置时间按钮
+const clockInput = document.getElementById('clockInput'); // 时间输入框
+const clockItems = document.getElementById('clockItems'); // 时钟相关元素容器
+
+// 秒表相关元素
+const stopwatchItems = document.getElementById('stopwatchItems');
+const stopwatchBtn = document.getElementById('startStopButton');
+
+// 计时器相关元素
+const timerStartBtn = document.getElementById('timerStartBtn');
+const timerResetBtn = document.getElementById('timerResetBtn');
 const timerInput = document.getElementById('timerInput');
 const timerItems = document.getElementById('timerItems');
 const timerAudio = document.getElementById('timerAudio');
+const timerDialog = document.getElementById('timerDialog');
+const timerAudioStopBtn = document.getElementById('timerAudioStopBtn');
 
+// 闹钟相关元素
 const alarm_list = document.getElementById('alarm_list');
+const li = document.getElementsByTagName('li');
+const timeSelect = document.getElementById('timeSelect');
 const alarmSet = document.getElementById('alarmSet');
+const addAlarmBtn = document.getElementById('addAlarmBtn');
+const sureBtn = document.getElementById('sureBtn');
+const noBtn = document.getElementById('noBtn');
 const alarmMusic = document.getElementById('alarmMusic');
 const alarmStop = document.getElementById('alarmStop');
 const stopRing = document.getElementById('stopRing');
@@ -518,101 +528,6 @@ function show_clock_items () {
     clockItems.setAttribute('style', 'display: block;');
 }
 
-// 计时器
-
-let timer_start = null;
-let targetTime = 0;
-let countdownInterval = 0;
-
-function start_timer () {
-    if (timer_start === null) {
-        let targetHour = timerInput.value.split(':')[0];
-        let targetMinute = timerInput.value.split(':')[1];
-        let targetSecond = timerInput.value.split(':')[2];
-
-        if (targetHour === undefined || targetMinute === undefined || targetSecond === undefined) {
-            return;
-        }
-
-        targetHour = parseInt(targetHour);
-        targetMinute = parseInt(targetMinute);
-        targetSecond = parseInt(targetSecond);
-        targetTime = targetHour * 3600 + targetMinute * 60 + targetSecond;
-
-        if (targetTime === 0) {
-            return;
-        }
-
-        pause();
-        clock.set_time(targetHour, targetMinute, targetSecond);
-        set_new_angle();
-        update_time_text();
-
-        timer_start = 'pause';
-    }
-
-    if (timer_start === 'pause') {
-        startBtnTimer.innerText = '暂停';
-        timer_start = 'start';
-        start_animation_reverse();
-        countdownInterval = setInterval(function () {
-            if (targetTime > 1) {
-                targetTime--;
-                const remainingHour = Math.floor(targetTime / 3600);
-                const remainingMinute = Math.floor((targetTime % 3600) / 60);
-                const remainingSecond = targetTime % 60;
-                clock.set_time(remainingHour, remainingMinute, remainingSecond);
-                update_time_text();
-            } else {
-                clearInterval(countdownInterval);
-                clock.set_time(0, 0, 0);
-                set_new_angle();
-                update_time_text();
-                stop_animation_reverse();
-                timerInput.value = '--:--:--';
-                timer_start = null;
-                timerAudio.play();
-                document.getElementById('timeIsUp').innerText = '时间到！';
-
-                setTimeout(function () {
-                    timerAudio.pause();
-                    document.getElementById('timeIsUp').innerText = '';
-                }, 5000);
-                timerAudio.currentTime = 0;
-            }
-        }, 1000);
-        return;
-    }
-
-    if (timer_start === 'start') {
-        startBtnTimer.innerText = '开始';
-        clearInterval(countdownInterval);
-        stop_animation_reverse();
-        timer_start = 'pause';
-        clock.update_angle_via_time();
-        set_new_angle();
-    }
-}
-
-function reset_timer () {
-    startBtnTimer.innerText = '开始';
-    if (clock_start !== 'pause') { pause(); }
-    clearInterval(countdownInterval);
-    stop_animation_reverse();
-    clock.set_time(0, 0, 0);
-    set_new_angle();
-    update_time_text();
-    timer_start = null;
-}
-
-function clear_timer_items () {
-    timerItems.setAttribute('style', 'display: none;');
-}
-
-function show_timer_items () {
-    timerItems.setAttribute('style', 'display: block;');
-}
-
 // 秒表
 
 let isClockRunning = false;
@@ -625,8 +540,6 @@ function resetClock () {
     isClockRunning = false;
     document.getElementById('startStopButton').classList.remove('running');
 }
-
-stopwatchBtn.onclick = toggleStartStop; // 设置时间按钮点击事件
 
 // 在start和stop切换
 function toggleStartStop () {
@@ -660,7 +573,120 @@ function show_stopwatch_items () {
     stopwatchItems.style.visibility = 'visible';
 }
 
+// 计时器
+
+let timer_start = null;
+let targetTime = 0;
+let timerInterval = 0;
+
+timerAudioStopBtn.addEventListener('click', function () {
+    timerDialog.close();
+    timerAudio.pause();
+    timerAudio.currentTime = 0;
+});
+
+function start_timer () {
+    if (timer_start === null) {
+        let targetHour = timerInput.value.split(':')[0];
+        let targetMinute = timerInput.value.split(':')[1];
+        let targetSecond = timerInput.value.split(':')[2];
+
+        if (targetHour === undefined || targetMinute === undefined || targetSecond === undefined) {
+            return;
+        }
+
+        targetHour = parseInt(targetHour);
+        targetMinute = parseInt(targetMinute);
+        targetSecond = parseInt(targetSecond);
+        targetTime = targetHour * 3600 + targetMinute * 60 + targetSecond;
+
+        if (targetTime === 0) {
+            return;
+        }
+
+        pause();
+        clock.set_time(targetHour, targetMinute, targetSecond);
+        set_new_angle();
+        update_time_text();
+
+        timer_start = 'pause';
+    }
+
+    if (timer_start === 'pause') {
+        timerStartBtn.innerText = '暂停';
+        timer_start = 'start';
+        start_animation_reverse();
+        timerInterval = setInterval(function () {
+            if (targetTime > 1) {
+                targetTime--;
+                const remainingHour = Math.floor(targetTime / 3600);
+                const remainingMinute = Math.floor((targetTime % 3600) / 60);
+                const remainingSecond = targetTime % 60;
+                clock.set_time(remainingHour, remainingMinute, remainingSecond);
+                update_time_text();
+            } else {
+                clearInterval(timerInterval);
+                clock.set_time(0, 0, 0);
+                set_new_angle();
+                update_time_text();
+                stop_animation_reverse();
+                timerInput.value = '--:--:--';
+                timer_start = null;
+                timerAudio.play();
+                timerDialog.showModal();
+                timer_start = null;
+                timerStartBtn.innerText = '开始';
+            }
+        }, 1000);
+        return;
+    }
+
+    if (timer_start === 'start') {
+        timerStartBtn.innerText = '开始';
+        clearInterval(timerInterval);
+        stop_animation_reverse();
+        timer_start = 'pause';
+        clock.update_angle_via_time();
+        set_new_angle();
+    }
+}
+
+function reset_timer () {
+    timerStartBtn.innerText = '开始';
+    if (clock_start !== 'pause') { pause(); }
+    clearInterval(timerInterval);
+    stop_animation_reverse();
+    clock.set_time(0, 0, 0);
+    set_new_angle();
+    update_time_text();
+    timer_start = null;
+}
+
+function clear_timer_items () {
+    timerItems.setAttribute('style', 'display: none;');
+    clearInterval(timerInterval);
+    stop_animation_reverse();
+    timerStartBtn.innerText = '开始';
+}
+
+function show_timer_items () {
+    timerItems.setAttribute('style', 'display: block;');
+}
+
 // 闹钟
+
+stopRing.addEventListener('click', function () {
+    alarmStop.close();
+    alarmMusic.pause();
+    alarmMusic.currentTime = 0;
+});
+
+audioFile.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+        filePath.textContent = `${file.name}`;
+    }
+});
 
 let Interval = setInterval(detectList, 100);
 
@@ -673,18 +699,15 @@ document.getElementById('audioFile').addEventListener('change', function () {
 });
 
 function use_alarm () {
-    let button = document.getElementById('add_alarm');
-    button.style.display = 'block';
-    var liCount = alarm_list.getElementsByTagName('li').length;
-    if(liCount !== 0) alarm_list.setAttribute('style', 'display: flex');
+    addAlarmBtn.style.display = 'block';
+    if (li.length !== 0) alarm_list.setAttribute('style', 'display: flex');
     if (Interval === null) {
         Interval = setInterval(detectList, 100);
     }
 }
 
 function use_alarm_special () {
-    var liCount = alarm_list.getElementsByTagName('li').length;
-    if (liCount !== 0) alarm_list.setAttribute('style', 'display: flex');
+    if (li.length !== 0) alarm_list.setAttribute('style', 'display: flex');
     if (Interval === null) {
         Interval = setInterval(detectList, 100);
     }
@@ -698,11 +721,8 @@ function add_alarm () {
 }
 
 function always_alarmRing (alarmTime) {
-    let hour = document.getElementById('hour');
-    let minute = document.getElementById('minute');
-    let second = document.getElementById('second');
-    let nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
-    if(alarmTime === nowTime){
+    const nowTime = hourText.textContent + ':' + minuteText.textContent + ':' + secondText.textContent;
+    if (alarmTime === nowTime) {
         alarmMusic.play();
         alarmStop.showModal();
     }
@@ -710,9 +730,9 @@ function always_alarmRing (alarmTime) {
 
 function sure () {
     alarmSet.setAttribute('style', 'display: none');
-    let timeSelect = document.getElementById('timeSelect');
+    // let timeSelect = document.getElementById('timeSelect');
     let alarmTime = timeSelect.value;
-    if(timeSelect.value === '') alarmTime = '00:00:00';
+    if (timeSelect.value === '') alarmTime = '00:00:00';
     const Types = document.querySelectorAll('input[name="setType"]');
     let selectType = null;
     Types.forEach(Type => {
@@ -720,18 +740,15 @@ function sure () {
             selectType = Type.value;
         }
     });
-    let alarmText = alarmTime + ' ' + selectType;
-    let newAlarm = document.createElement('li');
-    let button = document.createElement('button');
+    const alarmText = alarmTime + ' ' + selectType;
+    const newAlarm = document.createElement('li');
+    const button = document.createElement('button');
     button.textContent = '删除';
     button.classList.add('deleteBtn');
     let interValid = null;
     if (selectType === 'once') {
-        interValid = setInterval( function once_alarmRing(alarmTime) {
-            let hour = document.getElementById('hour');
-            let minute = document.getElementById('minute');
-            let second = document.getElementById('second');
-            let nowTime = hour.textContent + ':' + minute.textContent + ':' + second.textContent;
+        interValid = setInterval(function once_alarmRing (alarmTime) {
+            const nowTime = hourText.textContent + ':' + minuteText.textContent + ':' + secondText.textContent;
             if (alarmTime === nowTime) {
                 clearInterval(interValid);
                 alarmMusic.play();
@@ -739,8 +756,7 @@ function sure () {
                 alarmStop.showModal();
             }
         }, 1000, alarmTime);
-    }
-    else {
+    } else {
         interValid = setInterval(always_alarmRing, 1000, alarmTime);
     }
     button.onclick = function () {
@@ -757,17 +773,14 @@ function no () {
 }
 
 function clearAlarm () {
-    let div = document.getElementById('add_alarm');
-    div.style.display = 'none';
+    addAlarmBtn.style.display = 'none';
     alarmSet.setAttribute('style', 'display: none');
 }
 
 function detectList () {
-    let liCount = alarm_list.getElementsByTagName('li').length;
-    if (liCount === 0) {
+    if (li.length === 0) {
         alarm_list.setAttribute('style', 'display: none');
-    }
-    else {
+    } else {
         alarm_list.setAttribute('style', 'display: flex');
     }
 }
@@ -775,31 +788,26 @@ function detectList () {
 function clearAlarm_special () {
     clearInterval(Interval);
     Interval = null;
-    let div = document.getElementById('add_alarm');
-    div.style.display = 'none';
+    addAlarmBtn.style.display = 'none';
     alarm_list.setAttribute('style', 'display: none');
     alarmSet.setAttribute('style', 'display: none');
 }
 
-stopRing.addEventListener('click', function(){
-    alarmStop.close();
-    alarmMusic.pause();
-    alarmMusic.currentTime = 0;
-})
-
-audioFile.addEventListener('change', function(){
-    const file = this.files[0];
-    if (file) {
-        filePath.textContent = `${file.name}`;
-    }
-})
-
 // 主函数
 function main () {
     choseBtn(clockBtn); // 默认选中时钟按钮
-    settingBtn.onclick = set_time_via_input; // 设置时间按钮点击事件
-    startBtnTimer.onclick = start_timer;
-    resetBtnTimer.onclick = reset_timer;
+
+    settingBtn.onclick = set_time_via_input;
+
+    stopwatchBtn.onclick = toggleStartStop;
+
+    timerStartBtn.onclick = start_timer;
+    timerResetBtn.onclick = reset_timer;
+
+    addAlarmBtn.onclick = add_alarm;
+    sureBtn.onclick = sure;
+    noBtn.onclick = no;
+
     // 初始化指针角度
     clock.update_angle_via_time();
     set_new_angle();

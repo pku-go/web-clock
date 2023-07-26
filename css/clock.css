@@ -113,14 +113,35 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border-color: #0e5dd4;
 }
 
-.set_timer_time #timeIsUp {
+/* .set_timer_time #timeIsUp {
     margin-top: 5px;
     font-size: 25px;
     color: #b6bbd2;
-}
+} */
 
 #timerAudio {
     display: none;
+}
+
+#timerDialog {
+    background-color: rgba(9, 166, 150, 0.2);
+    background: url('../images/background.png');
+    border-radius: 15px;
+    opacity: 1;
+    color: #b6bbd2;
+}
+
+#timerAudioStopBtn {
+    width: 80px;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #b6bbd2;
+    cursor: pointer;
 }
 
 .menu {
@@ -434,7 +455,7 @@ text {
     text-align: left;
 }
 
-#add_alarm {
+#addAlarmBtn {
     margin-top: 35px;
     width: 100px;
     height: 30px;
@@ -509,7 +530,7 @@ text {
     cursor: pointer;
 }
 
-#no {
+#noBtn {
     margin-left: 10px;
 }
 

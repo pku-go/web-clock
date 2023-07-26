@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -380,14 +380,17 @@
                 </div>
                 <div class="set_timer_time" id="timerItems">
                     <input type="time" step="1" id="timerInput" />
-                    <button type="button" id="startBtnTimer" onclick="start_timer()">开始</button>
-                    <button type="button" id="resetBtnTimer" onclick="reset_timer()">重置</button>
-                    <div id="timeIsUp"></div>
+                    <button type="button" id="timerStartBtn" onclick="start_timer()">开始</button>
+                    <button type="button" id="timerResetBtn" onclick="reset_timer()">重置</button>
                 </div>
                 <audio id="timerAudio" src="audio/alarm1.mp3"></audio>
+                <dialog id="timerDialog">
+                    <h2>时间到！</h2>
+                    <button id="timerAudioStopBtn">Stop</button>
+                </dialog>
                 <div id="alarm_feature">
                     <ul id="alarm_list"></ul>
-                    <button id="add_alarm" onclick="add_alarm()">添加闹钟</button>
+                    <button type="button" id="addAlarmBtn" onclick="add_alarm()">添加闹钟</button>
                     <div id="alarmSet" class="alarmContainer">
                         <div class="alarmContent">
                             <input type="time" step="1" id="timeSelect">
@@ -400,8 +403,8 @@
                             <input type="file" id="audioFile" accept="audio/*"/>
                         </div>
                         <div class="alarmContent">
-                            <button id="sure" onclick="sure()">确认</button>
-                            <button id="no" onclick="no()">取消</button>
+                            <button id="sureBtn" onclick="sure()">确认</button>
+                            <button id="noBtn" onclick="no()">取消</button>
                         </div>
                     </div>
                     <audio id="alarmMusic" src="audio/alarm3.mp3" preload="auto"></audio>
@@ -409,6 +412,7 @@
                         <h2>Alarm is ringing</h2>
                         <button id="stopRing">Stop</button>
                     </dialog>
+                    
                 </div>
             </div>
 
