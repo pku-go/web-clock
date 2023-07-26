@@ -581,10 +581,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     display: inline-block;
     width: 100px;
     height: 27px;
-    /* margin-top: 15px; */
     font-size: 15px;
     font-weight: lighter;
     text-align: center;
+    line-height: 1.5rem;
     border-radius: 15px;
     border: 1px solid #fff;
     background-color: rgba(0, 0, 0, 0.3);
@@ -598,5 +598,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 #filePath {
+    text-align: center;
+    display: inline-block;
+    line-height: 1.5rem;
     width: 150px;
 }
