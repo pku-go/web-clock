@@ -365,7 +365,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     position: absolute;
     align-items: center;
     overflow: visible;
-    top: 220px;
+    top: 255px;
     left: 250px;
 }
 
