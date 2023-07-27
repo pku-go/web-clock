@@ -54,17 +54,14 @@ root
 
 首先要保证代码目录结构如上，然后在`Chrome`浏览器中打开`index.html`文件，页面如下：
 
-![image-20230727151128693](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727151128693.png)
-
 #### 时钟功能
 
 默认会获取当前系统时间，要更改时间需要先点击"设置时间"按钮，接着会支持两种方式来进行时间设置：
 
 - 拖动表盘上的指针，需要设置`AM`和`PM`时点击表盘上的"AM"或"PM"字样即可切换。
 
-- 在下图中的时间输入框中设置
+- 在时间输入框中设置
 
-  ![image-20230727151824819](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727151824819.png)
 
 需要注意的是时间输入框和拖动表盘同时设置时会以输入框内时间为准。
 
@@ -72,39 +69,23 @@ root
 
 点击"秒表"按钮进入秒表功能页面
 
-![image-20230727152141894](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727152141894.png)
-
 此时表盘右侧会出现两个按钮，分别为归零按钮和开始按钮，点击开始按钮开始计时，此时开始按钮会变为暂停按钮。
-
-![image-20230727152432778](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727152432778.png)
 
 #### 计时器功能
 
 点击"计时器"按钮进入计时器页面
 
-![image-20230727153124489](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727153124489.png)
-
 点击时间选择框来设置倒计时时间，点击开始进行倒计时，结束之后会弹窗提示并有响铃：
-
-![image-20230727153439601](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727153439601.png)
 
 #### 闹钟功能
 
 点击"闹钟"按钮进入闹钟页面
 
-![image-20230727153638933](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727153638933.png)
-
 点击"添加闹钟"弹出闹钟设置页面
 
-![image-20230727153745376](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727153745376.png)
-
-默认有闹铃，也可以选择文件自定义闹铃，同样通过时间输入框设置闹铃时间，点击确认如下：
-
-![image-20230727153907497](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727153907497.png)
+默认有闹铃，也可以选择文件自定义闹铃，同样通过时间输入框设置闹铃时间
 
 时间到之后会有提示并有铃声
-
-![image-20230727154034064](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230727154034064.png)
 
 ## 遇到问题及解决办法
 
