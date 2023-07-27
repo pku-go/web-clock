@@ -419,6 +419,7 @@ function choseBtn(btn) {
             clear_clock_items();
             clear_stopwatch_items();
             show_timer_items();
+            reset_timer();
             clearAlarm_special();
             break;
         case "alarmBtn":
@@ -751,7 +752,6 @@ function always_alarmRing(alarmTime) {
 
 function sure() {
     alarmSet.setAttribute("style", "display: none");
-    // let timeSelect = document.getElementById('timeSelect');
     let alarmTime = timeSelect.value;
     if (timeSelect.value === "") alarmTime = "00:00:00";
     const Types = document.querySelectorAll('input[name="setType"]');
